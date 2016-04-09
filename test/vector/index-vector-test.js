@@ -3,7 +3,7 @@
 import {describe} from 'mocha'
 
 describe('@vectors', () => {
-  require('./isVector-test')
+  require('./isValid-test')
   require('./vCreators-test')
 })
 

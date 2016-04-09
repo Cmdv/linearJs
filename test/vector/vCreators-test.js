@@ -5,14 +5,11 @@ import assert from 'assert'
 import {vCreate, vRandom, vLength} from '../../src/vector/index'
 // TODO: Write more tests for vZero vCopy
 
+const roundOff = x => x >= 0 && x <= 1
+
 describe('@vCreators', () => {
   describe('@vCreate', () => {
-    it('throws if given a single number', () => {
-      assert.throws(() => vCreate(4), 'A vector can only be a array with ' +
-        'more than 2 values `[1, 2]`, it cannot be: a single number `1`, ' +
-        'nested arrays, or a matrix')
-    })
-    it('creates vector given more than 2 numbers', () => {
+    it('creates vector given numbers', () => {
       assert.deepEqual(vCreate(1, 2), [1, 2])
     })
     it('creates vector given array', () => {
@@ -33,7 +30,7 @@ describe('@vCreators', () => {
     it('creates random vector values given array', () => {
       const rand = vRandom([0, 0, 0, 0])
       const roundLength = Math.round(vLength(rand))
-      const result = roundLength >= 0 && roundLength <= 1
+      const result = roundOff(roundLength)
       assert.equal(result, true) // close to 1
     })
     it('creates vector with length of given numbers', () => {
