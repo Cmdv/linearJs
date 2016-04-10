@@ -8,7 +8,7 @@ import {vCreate, vRandom, vLength} from '../../src/vector/index'
 const roundOff = x => x >= 0 && x <= 1
 
 describe('@vCreators', () => {
-  describe('@vCreate', () => {
+  describe('@vCreate()', () => {
     it('creates vector given numbers', () => {
       assert.deepEqual(vCreate(1, 2), [1, 2])
     })
@@ -20,13 +20,13 @@ describe('@vCreators', () => {
       assert.throws(() => vCreate('a'), 'A vector can only be of numerical values')
     })
   })
-  describe('@vCopy', () => {
+  describe('@vCopy()', () => {
     it('still to do', () => {
       assert.deepEqual(true, true)
     })
   })
 
-  describe('@vRandom', () => {
+  describe('@vRandom()', () => {
     it('creates random vector values given array', () => {
       const rand = vRandom([0, 0, 0, 0])
       const roundLength = Math.round(vLength(rand))
