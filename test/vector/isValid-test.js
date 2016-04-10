@@ -5,40 +5,31 @@ import assert from 'assert'
 
 import {isValidNumbers, isValidVector} from '../../src/vector/isValid'
 
-describe('@isValid', () => {
-  describe('@isValidNumbers()', () => {
-    it('throws if empty', () => {
-      assert.throws(() => {
-        isValidNumbers()
-      }, /A value is needed for a vector/)
-    })
-    it('throws if all element of vector are not numbers', () => {
-      assert.throws(() => {
-        isValidNumbers([1, 2, 'a'])
-      }, /A vector can only be of numerical values/)
-    })
+describe('@isValidNumbers()', () => {
+  it('false if empty', () => {
+    assert.strictEqual(isValidNumbers(), false)
   })
-  describe('@isValidVector()', () => {
-    it('throws if vector argument is matrix', () => {
-      assert.throws(() => {
-        isValidVector([[1, 2], [1, 2], [1, 2]])
-      }, /A valid vector must be passed to this function/)
-    })
-    it('throws if too many vector arguments', () => {
-      assert.throws(() => {
-        isValidVector([1, 2], [1, 2])
-      }, /A valid vector must be passed to this function/)
-    })
-    it('throws if vector arguments are not numbers', () => {
-      assert.throws(() => {
-        isValidVector('vector')
-      }, /A valid vector must be passed to this function/)
-      assert.throws(() => {
-        isValidVector(['a', 'b'])
-      }, /A vector can only be of numerical values/)
-    })
-    it('returns true if given a vector and all elements are numbers', () => {
-      assert.strictEqual(isValidVector([1, 2, 3]), true)
-    })
+  it('false if all element of vector are not numbers', () => {
+    assert.strictEqual(
+      isValidNumbers([1, 2, 'a']), false)
+  })
+})
+describe('@isValidVector()', () => {
+  it('throws if vector argument is matrix', () => {
+    assert.strictEqual(
+      isValidVector([[1, 2], [1, 2], [1, 2]]), false)
+  })
+  it('throws if too many vector arguments', () => {
+    assert.strictEqual(
+      isValidVector([1, 2], [1, 2]), false)
+  })
+  it('throws if vector arguments are not numbers', () => {
+    assert.strictEqual(
+      isValidVector('vector'), false)
+    assert.strictEqual(
+      isValidVector(['a', 'b']), false)
+  })
+  it('returns true if given a vector and all elements are numbers', () => {
+    assert.strictEqual(isValidVector([1, 2, 3]), true)
   })
 })
