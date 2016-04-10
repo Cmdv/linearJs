@@ -1,6 +1,6 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import {isVector} from '../vector/isVector'
+import {isVector} from '../vector/isValid'
 
 const matrixLength = len => len === 3 || len === 9
 const isVectors = x => isVector(x)
