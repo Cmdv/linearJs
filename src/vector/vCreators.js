@@ -66,8 +66,11 @@ export function vRandom (els, scale = 1.0) {
   if (!isValidNumbers(els)) {
     throw new Error('vRandom accepts a valid vector or a number')
   }
-  const vec = Array(els)
-  return randomGenerator(vec, scale)
+  if (!Array.isArray(els)) {
+    const vec = Array(els)
+    return randomGenerator(vec, scale)
+  }
+  return randomGenerator(els, scale)
 }
 
 const randomGenerator = (vec, scale) => {
