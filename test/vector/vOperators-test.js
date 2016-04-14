@@ -2,8 +2,21 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {vDot, vLength, vMap, vReduce} from '../../src/vector/vOperators'
+import {vAdd, vDot, vLength, vMap, vReduce} from '../../src/vector/vOperators'
+import {compose} from '../../src/fp-helpers'
 
+describe('@vAdd', () => {
+  it('given two vectors it will add them together', () => {
+    assert.deepEqual(vAdd([1, 2], [1, 2]), [2, 4])
+  })
+  it('given one vectors it will add it self', () => {
+    assert.deepEqual(vAdd([1, 2]), [2, 4])
+  })
+  it('vAdd can be used in compose()', () => {
+    const comp = compose(vDot, vAdd([1, 2]))
+    assert.deepEqual(comp([4, 2]), 41)
+  })
+})
 describe('@vDot', () => {
   it('given two vectors it will dot product them', () => {
     assert.strictEqual(vDot([1, 2], [1, 2]), 5)

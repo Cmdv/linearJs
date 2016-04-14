@@ -1,5 +1,7 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
+// import {isValidVector} from './isValid'
+
 /**
  * vAdd adds 2 vectors or it self if given only one vector
  *
@@ -7,15 +9,19 @@
  *
  * @param {Array} a vector
  * @param {Array} b vector
- * @returns {Array} c vector
+ * @returns {Function} c vector
  */
-export function vAdd (a, b = a) {
-  const l = a.length
-  const out = []
-  for (let i = 0; i < l; ++i) {
-    out[i] = a[i] + b[i]
+
+export const vAdd = a => {
+  const addC = (b = a) => {
+    const l = a.length
+    const out = []
+    for (let i = 0; i < l; ++i) {
+      out[i] = a[i] + b[i]
+    }
+    return out
   }
-  return out
+  return addC
 }
 
 /**
@@ -28,7 +34,7 @@ export function vAdd (a, b = a) {
  * @param {Array} v2 vector if not present uses v1
  * @returns {Number} dot product of v1 and v2
  */
-export function vDot (v1, v2 = v1) {
+export const vDot = (v1, v2 = v1) => {
   const l = v2.length
   const b = new Array(v1)
   if (l !== v2.length) {
@@ -49,7 +55,7 @@ export function vDot (v1, v2 = v1) {
  * @param {Array} a vector
  * @returns {Number} d a number with the length of the vector
  */
-export function vLength (a) {
+export const vLength = a => {
   const d = vDot(a, a)
   return Math.sqrt(d)
 }
@@ -63,7 +69,7 @@ export function vLength (a) {
  * @param {Array} a vector
  * @returns {Array} b vector
  */
-export function vMap (f, a) {
+export const vMap = (f, a) => {
   const l = a.length
   const b = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -84,7 +90,7 @@ export function vMap (f, a) {
  * @param {Array} a vector
  * @returns {Number} an accumulated value
  */
-export function vReduce (f, z, a) {
+export const vReduce = (f, z, a) => {
   let r = z
   for (let i = 0, l = a.length; i < l; ++i) {
     r = f(r, a[i], i)
