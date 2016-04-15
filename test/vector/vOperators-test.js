@@ -2,19 +2,28 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {vAdd, vDot, vLength, vMap, vReduce} from '../../src/vector/vOperators'
+import {vAdd, vAddSelf, vDot, vLength, vMap, vReduce} from '../../src/vector/vOperators'
 import {compose} from '../../src/fp-helpers'
 
 describe('@vAdd', () => {
   it('given two vectors it will add them together', () => {
     assert.deepEqual(vAdd([1, 2], [1, 2]), [2, 4])
   })
-  it('given one vectors it will add it self', () => {
-    assert.deepEqual(vAdd([1, 2]), [2, 4])
+  it('given two vectors one called outside it will add them together', () => {
+    assert.deepEqual(vAdd([1, 2])([1, 2]), [2, 4])
   })
   it('vAdd can be used in compose()', () => {
     const comp = compose(vDot, vAdd([1, 2]))
     assert.deepEqual(comp([4, 2]), 41)
+  })
+})
+describe('@vAddSelf', () => {
+  it('given one vector it will add it self', () => {
+    assert.deepEqual(vAddSelf([1, 2]), [2, 4])
+  })
+  it('vAddSelf can be used in compose()', () => {
+    const comp = compose(vDot, vAddSelf)
+    assert.deepEqual(comp([4, 2]), 80)
   })
 })
 describe('@vDot', () => {

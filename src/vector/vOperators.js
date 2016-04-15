@@ -1,27 +1,37 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
 // import {isValidVector} from './isValid'
+import {_curry2} from '../fp-helpers'
 
 /**
- * vAdd adds 2 vectors or it self if given only one vector
+ * vAdd adds 2 vectors
  *
  * vMap :: ([a] -> [b]) -> [c]
  *
  * @param {Array} a vector
  * @param {Array} b vector
- * @returns {Function} c vector
+ * @returns {Function} out vector
  */
-
-export const vAdd = a => {
-  const addC = (b = a) => {
-    const l = a.length
-    const out = []
-    for (let i = 0; i < l; ++i) {
-      out[i] = a[i] + b[i]
-    }
-    return out
+export const vAdd = _curry2(function vAdd (a, b) {
+  const l = a.length
+  const out = []
+  for (let i = 0; i < l; ++i) {
+    out[i] = a[i] + b[i]
   }
-  return addC
+  return out
+})
+
+/**
+ * vAddSelf adds it self given 1 vector
+ *
+ * vMap :: ([a] -> [b]) -> [c]
+ *
+ * @param {Array} a vector
+ * @param {Array} b vector
+ * @returns {Function} out vector
+ */
+export const vAddSelf = function vAddSelf (a) {
+  return vAdd(a, a)
 }
 
 /**
