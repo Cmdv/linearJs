@@ -2,7 +2,7 @@
  *  @author Vincent Orr */
 
 // id :: a -> a
-export const id = x => x
+// export const id = x => x
 
 // compose :: (b -> c) -> (a -> b) -> (a -> c)
 export const compose = (f, g) => {
@@ -13,7 +13,7 @@ export const compose = (f, g) => {
 }
 
 // apply :: (a -> b) -> a -> b
-export const apply = (f, x) => f(x)
+// export const apply = (f, x) => f(x)
 
 // curry2 :: ((a, b) -> c) -> (a -> b -> c)
 export function _curry2 (f) {

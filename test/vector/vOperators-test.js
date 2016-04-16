@@ -45,9 +45,11 @@ describe('@vMap', () => {
     assert.deepEqual(vMap(x => x + x, [1, 2, 3]), [2, 4, 6])
   })
 })
-// TODO: Sort out reduce null value
 describe('@vReduce', () => {
-  it('creates vector given numbers', () => {
-    assert.strictEqual(vReduce((x, y) => x + y, null, [1, 2, 3]), 6)
+  it('returns the reduced number of a vector with no initial value', () => {
+    assert.strictEqual(vReduce((x, y) => x + y, [1, 2, 3]), 6)
+  })
+  it('returns the reduced numer of a vector with initial values', () => {
+    assert.strictEqual(vReduce((x, y) => x + y, [1, 2, 3], 6), 12)
   })
 })
