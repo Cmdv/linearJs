@@ -46,10 +46,10 @@ export const vAddSelf = function vAddSelf (a) {
  * @returns {Number} dot product of [a] and [b]
  */
 export const vDot = (a, b = a) => {
-  const l = b.length
+  const l = a.length
   const vec = new Array(a)
   if (l !== b.length) {
-    return null
+    throw new Error('vectors need to be of matching lengths')
   }
   for (let i = 0; i < l; i++) {
     vec[i] = a[i] * b[i]

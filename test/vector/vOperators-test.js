@@ -2,7 +2,7 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {vAdd, vAddSelf, vDot, vLength, vMap, vReduce} from '../../src/vector/vOperators'
+import {vAdd, vAddSelf, vDot, vLength, vMap, vReduce, vSubtract} from '../../src/vector/vOperators'
 import {compose} from '../../src/fp-helpers'
 
 describe('@vAdd', () => {
@@ -33,6 +33,9 @@ describe('@vDot', () => {
   it('given one vectors it will dot product it self', () => {
     assert.strictEqual(vDot([1, 2]), 5)
   })
+  it('throws if vectors are not the same length', () => {
+    assert.throws(() => vDot([1, 2], [1, 2, 3]), 'vectors need to be of matching lengths')
+  })
 })
 describe('@vLength', () => {
   it('creates vector given numbers', () => {
@@ -51,5 +54,17 @@ describe('@vReduce', () => {
   })
   it('returns the reduced numer of a vector with initial values', () => {
     assert.strictEqual(vReduce((x, y) => x + y, [1, 2, 3], 6), 12)
+  })
+})
+describe('@vSubtract', () => {
+  it('vSubtract can be used in compose()', () => {
+    const comp = compose(vDot, vSubtract([5, 6]))
+    assert.deepEqual(comp([3, 4]), 8)
+  })
+  it('given two vectors it will subtract them from each other', () => {
+    assert.deepEqual(vSubtract([5, 6], [3, 4]), [2, 2])
+  })
+  it('given two vectors one called outside it will subtract', () => {
+    assert.deepEqual(vSubtract([5, 6])([3, 4]), [2, 2])
   })
 })
