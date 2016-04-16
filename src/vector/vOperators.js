@@ -1,47 +1,65 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
+// import {isValidVector} from './isValid'
+import {_curry2} from '../fp-helpers/index'
+
 /**
- * vAdd adds 2 vectors or it self if given only one vector
+ * vAdd adds 2 vectors together and returns the addition
+ * in a single vector.
  *
  * vMap :: ([a] -> [b]) -> [c]
  *
  * @param {Array} a vector
  * @param {Array} b vector
- * @returns {Array} c vector
+ * @returns {Function} out vector
  */
-export function vAdd (a, b = a) {
+export const vAdd = _curry2(function vAdd (a, b) {
   const l = a.length
-  const out = []
+  const vec = []
   for (let i = 0; i < l; ++i) {
-    out[i] = a[i] + b[i]
+    vec[i] = a[i] + b[i]
   }
-  return out
+  return vec
+})
+
+/**
+ * vAddSelf adds a given vector with it self and return the
+ * addition in a single vector
+ *
+ * vAddSelf :: [a] -> [b]
+ *
+ * @param {Array} a vector
+ * @returns {Function} out vector
+ */
+export const vAddSelf = function vAddSelf (a) {
+  return vAdd(a, a)
 }
 
 /**
- * vDot Calculates the length of a vector
+ * vDot Calculates the dot product of 2 given vectors
  *
- * vDot :: [a] -> [a]
+ * vDot :: [a] -> a
  * vDot :: [2,2] -> [4,4]
  *
- * @param {Array} v1 vector
- * @param {Array} v2 vector if not present uses v1
- * @returns {Number} dot product of v1 and v2
+ * @param {Array} [a] vector
+ * @param {Array} [b] = [a] vector if not present uses vector [a]
+ * @returns {Number} dot product of [a] and [b]
  */
-export function vDot (v1, v2 = v1) {
-  const l = v2.length
-  const b = new Array(v1)
-  if (l !== v2.length) {
-    return null
+export const vDot = (a, b = a) => {
+  const l = a.length
+  const vec = new Array(a)
+  if (l !== b.length) {
+    throw new Error('vectors need to be of matching lengths')
   }
   for (let i = 0; i < l; i++) {
-    b[i] = v1[i] * v2[i]
+    vec[i] = a[i] * b[i]
   }
-  return vReduce((x, y) => x + y, null, b)
+  return vReduce((x, y) => x + y, vec)
 }
 
 /**
- * vLength Calculates the length of a vector
+ * vLength Calculates the length of a vector and returns a number by squaring a
+ * dot product of the vector.
  *
  * vLength :: [a] -> num
  * vLength :: [0,3,4,5] -> 7.0710678118654755
@@ -49,30 +67,30 @@ export function vDot (v1, v2 = v1) {
  * @param {Array} a vector
  * @returns {Number} d a number with the length of the vector
  */
-export function vLength (a) {
+export const vLength = a => {
   const d = vDot(a, a)
   return Math.sqrt(d)
 }
 
 /**
- * vMap transform each element of a vector with a given function
+ * vMap transform each element of a vector with a given function and returns the
+ * transformed values in a new vector.
  *
  * vMap :: (a -> b) -> [a] -> [b]
  *
  * @param {Function} f function
  * @param {Array} a vector
- * @returns {Array} b vector
+ * @returns {Array} [vec] vector
  */
-export function vMap (f, a) {
+export const vMap = (f, a) => {
   const l = a.length
-  const b = new Array(l)
+  const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
-    b[i] = f(a[i])
+    vec[i] = f(a[i])
   }
-  return b
+  return vec
 }
 
-// TODO: Sort out reduce null value
 /**
  * Reduce returns an accumulation of a function which is called x number of times
  * where x is the length of the vector element.
@@ -80,14 +98,33 @@ export function vMap (f, a) {
  * vReduce :: (a -> b -> a) -> a -> [b] -> a
  *
  * @param {Function} f function
- * @param {Number} z need to sort out
  * @param {Array} a vector
+ * @param {Number} z is the initial value
  * @returns {Number} an accumulated value
  */
-export function vReduce (f, z, a) {
+export const vReduce = (f, a, z = 0) => {
   let r = z
   for (let i = 0, l = a.length; i < l; ++i) {
     r = f(r, a[i], i)
   }
   return r
 }
+
+/**
+ * vAdd adds 2 vectors together and returns the addition
+ * in a single vector.
+ *
+ * vMap :: ([a] , [b]) -> [c]
+ *
+ * @param {Array} a vector
+ * @param {Array} b vector
+ * @returns {Function} out vector
+ */
+export const vSubtract = _curry2(function vAdd (a, b) {
+  const l = a.length
+  const vec = []
+  for (let i = 0; i < l; ++i) {
+    vec[i] = a[i] - b[i]
+  }
+  return vec
+})

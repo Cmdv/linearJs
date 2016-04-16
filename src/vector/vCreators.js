@@ -4,12 +4,15 @@ import {isValidNumbers, isValidVector} from './isValid'
 import {RANDOM} from '../common'
 
 /**
- * Generates a new, empty vector from a numbers or an array
+ * Generates a new, empty vector from a set of numbers or an array, you can
+ * create new vectors by just creating an array but this is a helper function.
  *
- * create :: ([a] -> [a]) (a -> [a])
- * create :: 1,2 -> [1,2]
+ * vCreate :: ([a] -> [a]) (a -> [a])
+ * vCreate :: 1,2,3 -> [1,2,3]
  *
  * @param {Array/Number} [els] empty vector `[0, 0, 0, 0]`
+ * @throws if all values aren't numbers
+ * @throws if value is not a vector
  * @returns {Array} a new vector
  */
 export function vCreate (...els) {
@@ -30,12 +33,13 @@ const isArray = el => {
 }
 
 /**
- * Generates a copy of given vector
+ * Generates a copy/clone of given vector
  *
  * vClone :: [a] -> [a]
  * vClone :: [1, 2] -> [1, 2]
  *
  * @param {Array} [vec] vector
+ * @throws if not a valid number or valid vector
  * @returns {Array} a new copy vector
  */
 export function vClone (vec) {
@@ -58,8 +62,9 @@ export function vClone (vec) {
  * vRandom :: ([0] -> [0.294850]) (2 -> [0.294850, -0.3084532])
  *
  * @param {Array, Number} els of an array or number to randomise
- * @param {Number} [scale] Length of the resulting vector. If omitted,
+ * @param {Number} [scale] [scale = 1.0] Scale of the resulting vector. If omitted,
  * a unit vector will be returned
+ * @throws if values is not a valid numerical number
  * @returns {Array} vector with random numbers
  */
 export function vRandom (els, scale = 1.0) {
@@ -84,12 +89,13 @@ const randomGenerator = (vec, scale) => {
 }
 
 /**
- * Generates a new, empty vector filed with values zeros
+ * Generates a new, empty vector with all values being zeros
  *
  * create :: a -> [a]
  * create :: 2 -> [0,0]
  *
  * @param {Number} [num] value of length of vector
+ * @throws value is not a number
  * @returns {Array} a new vector filled with zeros
  */
 export function vZeros (num) {
