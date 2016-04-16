@@ -7,11 +7,11 @@ import {_curry2} from '../fp-helpers/index'
  * vAdd adds 2 vectors together and returns the addition
  * in a single vector.
  *
- * vMap :: ([a] -> [b]) -> [c]
+ * vAdd :: :: ([a], [b]) -> ([a] + [b]) -> [c]
  *
  * @param {Array} a vector
  * @param {Array} b vector
- * @returns {Function} out vector
+ * @returns {Array} [vec] single vector with result of the addition.
  */
 export const vAdd = _curry2(function vAdd (a, b) {
   const l = a.length
@@ -26,14 +26,33 @@ export const vAdd = _curry2(function vAdd (a, b) {
  * vAddSelf adds a given vector with it self and return the
  * addition in a single vector
  *
- * vAddSelf :: [a] -> [b]
+ * vAddSelf :: [a] -> ([a] + [a]) -> [b]
  *
  * @param {Array} a vector
- * @returns {Function} out vector
+ * @returns {Array} single vector with result of the addition.
  */
 export const vAddSelf = function vAddSelf (a) {
   return vAdd(a, a)
 }
+
+/**
+ * vDivide adds 2 vectors together and returns the addition
+ * in a single vector.
+ *
+ * vDivide :: :: ([a], [b]) -> ([a] / [b]) -> [c]
+ *
+ * @param {Array} a vector
+ * @param {Array} b vector
+ * @returns {Array} [vec] single vector with result of the division.
+ */
+export const vDivide = _curry2(function vDivide (a, b) {
+  const l = a.length
+  const vec = []
+  for (let i = 0; i < l; ++i) {
+    vec[i] = a[i] / b[i]
+  }
+  return vec
+})
 
 /**
  * vDot Calculates the dot product of 2 given vectors
@@ -111,20 +130,39 @@ export const vReduce = (f, a, z = 0) => {
 }
 
 /**
- * vAdd adds 2 vectors together and returns the addition
+ * vSubtract subtracts vectors together and returns the result
  * in a single vector.
  *
- * vMap :: ([a] , [b]) -> [c]
+ * vSubtract :: ([a], [b]) -> ([a] - [b]) -> [c]
  *
  * @param {Array} a vector
  * @param {Array} b vector
- * @returns {Function} out vector
+ * @returns {Array} [vec] single vector with result of the subtraction.
  */
-export const vSubtract = _curry2(function vAdd (a, b) {
+export const vSubtract = _curry2(function vSubtract (a, b) {
   const l = a.length
   const vec = []
   for (let i = 0; i < l; ++i) {
     vec[i] = a[i] - b[i]
+  }
+  return vec
+})
+
+/**
+ * vMultiply multiplies vectors together and returns the result
+ * in a single vector.
+ *
+ * vMultiply :: ([a], [b]) -> ([a] * [b]) -> [c]
+ *
+ * @param {Array} a vector
+ * @param {Array} b vector
+ * @returns {Array} [vec] single vector with result of the multiplication.
+ */
+export const vMultiply = _curry2(function vMultiply (a, b) {
+  const l = a.length
+  const vec = []
+  for (let i = 0; i < l; ++i) {
+    vec[i] = a[i] * b[i]
   }
   return vec
 })
