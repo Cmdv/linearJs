@@ -9,7 +9,7 @@
 
 // compose :: (b -> c) -> (a -> b) -> (a -> c)
 export const compose = (f, g) => {
-  if (!f || !g) {
+  if (!f && !g) {
     throw new Error('compose requires at least one argument')
   }
   return x => f(g(x))

@@ -2,8 +2,12 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {vAdd, vAddSelf, vDot, vLength, vMap, vReduce, vSubtract, vDivide, vMultiply} from '../../src/vector/vOperators'
-import {compose} from '../../src/fp-helpers'
+import {compose} from '../../src/helpers'
+import {
+  vAdd, vAddSelf, vCeil, vDot, vLength, vMap, vReduce,
+  vSubtract, vDivide, vMultiply, vMax, vMin,
+  vFloor, vRound
+} from '../../src/vector/vOperators'
 
 // vAdd, vDivide, vMultiply, vSubtract'
 describe('@vAdd, @vDivide, @vMultiply, @vSubtract', () => {
@@ -42,6 +46,14 @@ describe('@vAdd, @vDivide, @vMultiply, @vSubtract', () => {
   })
 })
 
+// vCeil
+describe('@vCeil', () => {
+  it('given a vector it will ceil it\'s values', () => {
+    const ceil = vCeil([2.42, 4.26])
+    assert.deepEqual(ceil, [3, 5])
+  })
+})
+
 // vAddSelf
 describe('@vAddSelf', () => {
   it('given one vector it will add it self', () => {
@@ -50,6 +62,14 @@ describe('@vAddSelf', () => {
   it('vAddSelf can be used in compose()', () => {
     const comp = compose(vDot, vAddSelf)
     assert.deepEqual(comp([4, 2]), 80)
+  })
+})
+
+// vFloor
+describe('@vFloor', () => {
+  it('given one vector it will add it self', () => {
+    const floor = vFloor([1.42, 2.26])
+    assert.deepEqual(floor, [1, 2])
   })
 })
 
@@ -81,6 +101,22 @@ describe('@vMap', () => {
   })
 })
 
+// vMax, vMin
+describe('@vMax, @vMin', () => {
+  it('returns the vector with the max value', () => {
+    const max = vMax([1, 2, 3], [4, 5, 6])
+    const min = vMin([1, 2, 3], [4, 5, 6])
+    assert.deepEqual(max, [4, 5, 6])
+    assert.deepEqual(min, [1, 2, 3])
+  })
+  it('it is curried', () => {
+    const max = vMax([1, 2, 3])([4, 5, 6])
+    const min = vMin([1, 2, 3])([4, 5, 6])
+    assert.deepEqual(max, [4, 5, 6])
+    assert.deepEqual(min, [1, 2, 3])
+  })
+})
+
 // vReduce
 describe('@vReduce', () => {
   it('returns the reduced number of a vector with no initial value', () => {
@@ -88,5 +124,13 @@ describe('@vReduce', () => {
   })
   it('returns the reduced numer of a vector with initial values', () => {
     assert.strictEqual(vReduce((x, y) => x + y, [1, 2, 3], 6), 12)
+  })
+})
+
+// vRound
+describe('@vRound', () => {
+  it('given a vector it will round it\'s values', () => {
+    const round = vRound([6.62, 4.05])
+    assert.deepEqual(round, [7, 4])
   })
 })
