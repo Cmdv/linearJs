@@ -7,7 +7,7 @@ import {
   vAdd, vAddSelf, vCeil, vDot, vLength, vMap, vReduce,
   vSubtract, vDivide, vMultiply, vMax, vMin, vFloor,
   vRound, vScale, vDistance, vDistanceSq, vNegate,
-  vInverse
+  vInverse, vInterp
 } from '../../src/vector/vOperators'
 
 // vAdd, vDivide, vMultiply, vSubtract'
@@ -114,6 +114,14 @@ describe('@vLength', () => {
   it('gets the length of a vector', () => {
     const len = vLength([1, 2])
     assert.deepEqual(Math.round(len), 2)
+  })
+})
+// TODO: tests for curried function
+// vInterp
+describe('@vInterp', () => {
+  it('returns an interpolation between 2 vectors', () => {
+    const interp = vInterp(0.5, [1, 2, 3, 4], [5, 6, 7, 8])
+    assert.deepEqual(interp, [3, 4, 5, 6])
   })
 })
 

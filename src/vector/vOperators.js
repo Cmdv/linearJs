@@ -1,7 +1,7 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
 // import {isValidVector} from './isValid'
-import {_curry2} from '../util/fp-functions'
+import {_curry2, _curry3} from '../util/fp-functions'
 
 /**
  * vAdd adds 2 vectors together and returns the addition
@@ -143,6 +143,23 @@ export const vFloor = function vFloor (a) {
   }
   return vec
 }
+
+/**
+ * vInterp, performs a linear interpolation between two vectors
+ *
+ * @param {Number} t interpolation amount between the two inputs
+ * @param {Array} a the first operand
+ * @param {Array} b the second operand
+ * @returns {Array} out
+ */
+export const vInterp = _curry3(function vInterp (t, a, b) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = a[i] + t * (b[i] - a[i])
+  }
+  return vec
+})
 
 /**
  * vInverse returns vector with it's values inverted
