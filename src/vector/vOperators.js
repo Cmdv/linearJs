@@ -1,17 +1,17 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
 // import {isValidVector} from './isValid'
-import {_curry2} from '../fp-helpers/index'
+import {_curry2} from '../helpers/index'
 
 /**
  * vAdd adds 2 vectors together and returns the addition
  * in a single vector.
  *
- * vMap :: ([a] -> [b]) -> [c]
+ * vAdd :: :: ([a], [b]) -> ([a] + [b]) -> [c]
  *
  * @param {Array} a vector
  * @param {Array} b vector
- * @returns {Function} out vector
+ * @returns {Array} [vec] single vector with result of the addition.
  */
 export const vAdd = _curry2(function vAdd (a, b) {
   const l = a.length
@@ -26,14 +26,50 @@ export const vAdd = _curry2(function vAdd (a, b) {
  * vAddSelf adds a given vector with it self and return the
  * addition in a single vector
  *
- * vAddSelf :: [a] -> [b]
+ * vAddSelf :: [a] -> ([a] + [a]) -> [b]
  *
  * @param {Array} a vector
- * @returns {Function} out vector
+ * @returns {Array} single vector with result of the addition.
  */
 export const vAddSelf = function vAddSelf (a) {
   return vAdd(a, a)
 }
+
+/**
+ * vCeil returns the smallest integer greater than or equal to a given number
+ *
+ * vCeil :: [a] -> a
+ *
+ * @param {Array} [a] function
+ * @returns {Array} [vec] vector with values ceil
+ */
+export const vCeil = function vMax (a) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = Math.ceil(a[i])
+  }
+  return vec
+}
+
+/**
+ * vDivide adds 2 vectors together and returns the addition
+ * in a single vector.
+ *
+ * vDivide :: :: ([a], [b]) -> ([a] / [b]) -> [c]
+ *
+ * @param {Array} a vector
+ * @param {Array} b vector
+ * @returns {Array} [vec] single vector with result of the division.
+ */
+export const vDivide = _curry2(function vDivide (a, b) {
+  const l = a.length
+  const vec = []
+  for (let i = 0; i < l; ++i) {
+    vec[i] = a[i] / b[i]
+  }
+  return vec
+})
 
 /**
  * vDot Calculates the dot product of 2 given vectors
@@ -55,6 +91,23 @@ export const vDot = (a, b = a) => {
     vec[i] = a[i] * b[i]
   }
   return vReduce((x, y) => x + y, vec)
+}
+
+/**
+ * vFloor returns the largest integer less than or equal to a given number
+ *
+ * vFloor :: [a] -> a
+ *
+ * @param {Array} [a] function
+ * @returns {Array} [vec] vector of with all floor values
+ */
+export const vFloor = function vFloor (a) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = Math.floor(a[i])
+  }
+  return vec
 }
 
 /**
@@ -92,6 +145,63 @@ export const vMap = (f, a) => {
 }
 
 /**
+ * vMax compares the
+ *
+ * vMax :: (a -> b) -> [a] -> [b]
+ *
+ * @param {Array} [a] function
+ * @param {Array} [b] vector
+ * @returns {Array} [vec] vector
+ */
+export const vMax = _curry2(function vMax (a, b) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = Math.max(a[i], b[i])
+  }
+  return vec
+})
+
+// TODO vMin
+/**
+ * vMin compares the vectors and returns the vector with the minimum
+ * value.
+ *
+ * vMin :: (a -> b) -> [a] -> [b]
+ *
+ * @param {Array} [a] function
+ * @param {Array} [b] vector
+ * @returns {Array} [vec] vector
+ */
+export const vMin = _curry2(function vMin (a, b) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = Math.min(a[i], b[i])
+  }
+  return vec
+})
+
+/**
+ * vMultiply multiplies vectors together and returns the result
+ * in a single vector.
+ *
+ * vMultiply :: ([a], [b]) -> ([a] * [b]) -> [c]
+ *
+ * @param {Array} a vector
+ * @param {Array} b vector
+ * @returns {Array} [vec] single vector with result of the multiplication.
+ */
+export const vMultiply = _curry2(function vMultiply (a, b) {
+  const l = a.length
+  const vec = []
+  for (let i = 0; i < l; ++i) {
+    vec[i] = a[i] * b[i]
+  }
+  return vec
+})
+
+/**
  * Reduce returns an accumulation of a function which is called x number of times
  * where x is the length of the vector element.
  *
@@ -110,17 +220,35 @@ export const vReduce = (f, a, z = 0) => {
   return r
 }
 
+// TODO finish vRound
 /**
- * vAdd adds 2 vectors together and returns the addition
+ * vRound returns the value of a number rounded to the nearest integer.
+ *
+ * vRound :: [a] -> a
+ *
+ * @param {Array} [a] function
+ * @returns {Array} [vec] vector
+ */
+export const vRound = function vRound (a) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = Math.round(a[i])
+  }
+  return vec
+}
+
+/**
+ * vSubtract subtracts vectors together and returns the result
  * in a single vector.
  *
- * vMap :: ([a] , [b]) -> [c]
+ * vSubtract :: ([a], [b]) -> ([a] - [b]) -> [c]
  *
  * @param {Array} a vector
  * @param {Array} b vector
- * @returns {Function} out vector
+ * @returns {Array} [vec] single vector with result of the subtraction.
  */
-export const vSubtract = _curry2(function vAdd (a, b) {
+export const vSubtract = _curry2(function vSubtract (a, b) {
   const l = a.length
   const vec = []
   for (let i = 0; i < l; ++i) {
