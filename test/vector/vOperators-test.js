@@ -2,7 +2,7 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {compose} from '../../src/helpers'
+import {compose} from '../../src/util/fp-functions'
 import {
   vAdd, vAddSelf, vCeil, vDot, vLength, vMap, vReduce,
   vSubtract, vDivide, vMultiply, vMax, vMin,

@@ -1,7 +1,7 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
 // import {isValidVector} from './isValid'
-import {_curry2} from '../helpers/index'
+import {_curry2} from '../util/fp-functions'
 
 /**
  * vAdd adds 2 vectors together and returns the addition

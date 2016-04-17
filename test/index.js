@@ -2,4 +2,4 @@
  *  @author Vincent Orr */
 
 require('./vector/index-test')
-require('./helpers/helpers-test')
+require('./util/fp-functions-test')
