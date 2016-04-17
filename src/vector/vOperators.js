@@ -72,6 +72,40 @@ export const vDivide = _curry2(function vDivide (a, b) {
 })
 
 /**
+ * vDistance Calculates the euclidean distance between two vectors
+ *
+ * vDistance :: ([a], [b]) -> a
+ * vDistance :: ([2,2], [2,2]) -> num
+ *
+ * @param {Array} [a] the first operand
+ * @param {Array} [b] the second operand
+ * @returns {Number} distance between [a] and [b]
+ */
+export const vDistance = _curry2(function (a, b) {
+  return Math.sqrt(vDistanceSq(a, b))
+})
+
+/**
+ * vDistanceSq Calculates the squared euclidean distance between two vectors
+ *
+ * vDistanceSq :: ([a], [b]) -> a
+ * vDistanceSq :: ([2,2], [2,2]) -> num
+ *
+ * @param {Array} [a] the first operand
+ * @param {Array} [b] the second operand
+ * @returns {Number} distance between [a] and [b]
+ */
+export const vDistanceSq = _curry2(function (a, b) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    const val = b[i] - a[i]
+    vec[i] = val * val
+  }
+  return vReduce((x, y) => x + y, vec)
+})
+
+/**
  * vDot Calculates the dot product of 2 given vectors
  *
  * vDot :: [a] -> a
@@ -162,7 +196,6 @@ export const vMax = _curry2(function vMax (a, b) {
   return vec
 })
 
-// TODO vMin
 /**
  * vMin compares the vectors and returns the vector with the minimum
  * value.
@@ -202,6 +235,23 @@ export const vMultiply = _curry2(function vMultiply (a, b) {
 })
 
 /**
+ * vScale scales a vectors with a given value
+ *
+ * vScale :: :: (a, [b]) -> ([b] * a) -> [c]
+ *
+ * @param {Number} a amount to scale the vector by
+ * @param {Array} [b] vector
+ * @returns {Array} [vec] single vector with result of the scale.
+ */
+export const vScale = _curry2(function vScale (a, b) {
+  const l = b.length
+  const vec = []
+  for (let i = 0; i < l; ++i) {
+    vec[i] = b[i] * a
+  }
+  return vec
+})
+/**
  * Reduce returns an accumulation of a function which is called x number of times
  * where x is the length of the vector element.
  *
@@ -220,7 +270,6 @@ export const vReduce = (f, a, z = 0) => {
   return r
 }
 
-// TODO finish vRound
 /**
  * vRound returns the value of a number rounded to the nearest integer.
  *
