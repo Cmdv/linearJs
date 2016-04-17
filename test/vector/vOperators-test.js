@@ -5,8 +5,9 @@ import assert from 'assert'
 import {compose} from '../../src/util/fp-functions'
 import {
   vAdd, vAddSelf, vCeil, vDot, vLength, vMap, vReduce,
-  vSubtract, vDivide, vMultiply, vMax, vMin,
-  vFloor, vRound, vScale, vDistance, vDistanceSq
+  vSubtract, vDivide, vMultiply, vMax, vMin, vFloor,
+  vRound, vScale, vDistance, vDistanceSq, vNegate,
+  vInverse
 } from '../../src/vector/vOperators'
 
 // vAdd, vDivide, vMultiply, vSubtract'
@@ -110,9 +111,17 @@ describe('@vFloor', () => {
 
 // vLength
 describe('@vLength', () => {
-  it('creates vector given numbers', () => {
+  it('gets the length of a vector', () => {
     const len = vLength([1, 2])
     assert.deepEqual(Math.round(len), 2)
+  })
+})
+
+// vInverse
+describe('@vInverse', () => {
+  it('returns the vector which is inverted', () => {
+    const inv = vInverse([1, 2, 3, 4])
+    assert.deepEqual(inv, [1, 0.5, 0.3333333333333333, 0.25])
   })
 })
 
@@ -136,6 +145,14 @@ describe('@vMax, @vMin', () => {
     const min = vMin([1, 2, 3])([4, 5, 6])
     assert.deepEqual(max, [4, 5, 6])
     assert.deepEqual(min, [1, 2, 3])
+  })
+})
+
+// vNegate
+describe('@vNegate', () => {
+  it('returns the vector with the max value', () => {
+    const neg = vNegate([1, 2, 3, 4, 5])
+    assert.deepEqual(neg, [-1, -2, -3, -4, -5])
   })
 })
 

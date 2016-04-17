@@ -145,6 +145,23 @@ export const vFloor = function vFloor (a) {
 }
 
 /**
+ * vInverse returns vector with it's values inverted
+ *
+ * vInverse :: :: [a] -> [a]
+ *
+ * @param {Array} [a] vector
+ * @returns {Array} [vec] vector with it's values inverted
+ */
+export const vInverse = a => {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = 1.0 / a[i]
+  }
+  return vec
+}
+
+/**
  * vLength Calculates the length of a vector and returns a number by squaring a
  * dot product of the vector.
  *
@@ -251,6 +268,24 @@ export const vScale = _curry2(function vScale (a, b) {
   }
   return vec
 })
+
+/**
+ * vNegate negates a vector
+ *
+ * vNegate :: :: [a] -> [-a]
+ *
+ * @param {Array} [a] vector
+ * @returns {Array} [vec] vector with it's values negated
+ */
+export const vNegate = function vNegate (a) {
+  const l = a.length
+  const vec = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    vec[i] = -a[i]
+  }
+  return vec
+}
+
 /**
  * Reduce returns an accumulation of a function which is called x number of times
  * where x is the length of the vector element.
