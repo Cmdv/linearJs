@@ -7,8 +7,8 @@
     "dist/linearjs.js"
   ],
   "scripts": {
-    "build-dist": "mkdir -p dist && rollup src/index.js | babel --presets es2015 --plugins transform-es2015-modules-umd --module-id 'linearjs' -o dist/linearjs.js",
-    "build": "npm run build-dist && uglifyjs dist/linearjs.js -o dist/linearjs.min.js",
+    "build-dist": "mkdir -p dist && ./node_modules/rollup/bin/rollup src/index.js | ./node_modules/babel-cli/bin/babel.js --presets es2015 --plugins transform-es2015-modules-umd --module-id 'linearjs' -o dist/linearjs.js",
+    "build": "npm run build-dist && ./node_modules/uglify-js/bin/uglifyjs dist/linearjs.js -o dist/linearjs.min.js",
     "prepublish": "npm run build",
     "preversion": "npm run build",
     "unit-test": "babel-node ./node_modules/.bin/isparta cover _mocha",
