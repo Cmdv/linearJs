@@ -36,6 +36,43 @@ export const vAddSelf = function vAddSelf (a) {
 }
 
 /**
+ * vAngleFrom
+ *
+ * vAngleFrom :: ([a], [b]) -> a
+ *
+ * @param {Array} [a] vector
+ * @param {Array} [b] vector
+ * @returns {Number} single vector with result of the addition.
+ */
+export const vAngleFrom = function vAngleFrom (a, b) {
+  const l = a.length
+  let dot = 0
+  let mod1 = 0
+  let mod2 = 0
+
+  for (let i = 0; i < l; ++i) {
+    dot += a[i] * b[i]
+    mod1 += a[i] * a[i]
+    mod2 += b[i] * b[i]
+  }
+
+  const mod1Sqr = Math.sqrt(mod1)
+  const mod2Sqr = Math.sqrt(mod1)
+
+  return angleTheta(mod1Sqr, mod2Sqr, dot)
+}
+
+function angleTheta (mod1Sqr, mod2Sqr, dot) {
+  // TODO: fix this if statement as Math.round(null) = 0 need to throw I think!
+  if (mod1Sqr * mod2Sqr === 0) {
+    return null
+  }
+  let theta = dot / (mod1Sqr * mod2Sqr)
+  console.log(theta)
+  return (theta < -1) ? Math.acos(-1) : Math.acos(1)
+}
+
+/**
  * vCeil returns the smallest integer greater than or equal to a given number
  *
  * vCeil :: [a] -> a
@@ -325,7 +362,7 @@ export const vReduce = (f, a, z = 0) => {
 /**
  * vRound returns the value of a number rounded to the nearest integer.
  *
- * vRound :: [a] -> a
+ * vRound :: [a] -> [a]
  *
  * @param {Array} [a] function
  * @returns {Array} [vec] vector

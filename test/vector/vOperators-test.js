@@ -7,7 +7,7 @@ import {
   vAdd, vAddSelf, vCeil, vDot, vLength, vMap, vReduce,
   vSubtract, vDivide, vMultiply, vMax, vMin, vFloor,
   vRound, vScale, vDistance, vDistanceSq, vNegate,
-  vInverse, vInterp
+  vInverse, vInterp, vAngleFrom
 } from '../../src/vector/vOperators'
 
 // vAdd, vDivide, vMultiply, vSubtract'
@@ -55,6 +55,15 @@ describe('@vAddSelf', () => {
   it('vAddSelf can be used in compose()', () => {
     const comp = compose(vDot, vAddSelf)
     assert.deepEqual(comp([4, 2]), 80)
+  })
+})
+
+// vAngleFrom
+describe('@angelFrom', () => {
+  it('angle from two vectors', () => {
+    const expect = Math.round((Math.PI / 4) * 1e-6) / 1e-6
+    const result = Math.round(vAngleFrom([1, 0], [1, 1]) * 1e-6) / 1e-6
+    assert.deepEqual(expect, result)
   })
 })
 
