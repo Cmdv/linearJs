@@ -7,7 +7,8 @@ import {
   vAdd, vAddSelf, vCeil, vDot, vLength, vMap, vReduce,
   vSubtract, vDivide, vMultiply, vMax, vMin, vFloor,
   vRound, vScale, vDistance, vDistanceSq, vNegate,
-  vInverse, vInterp, vAngleFrom
+  vInverse, vInterp, vAngleFrom, vIsPerpendicular,
+  vIsAntiParallel, vIsParallel
 } from '../../src/vector/vOperators'
 
 // vAdd, vDivide, vMultiply, vSubtract'
@@ -65,14 +66,49 @@ describe('@vAngleFrom', () => {
     const result = Math.round(vAngleFrom([1, 0], [1, 1]) * 1e-6) / 1e-6
     assert.deepEqual(expect, result)
   })
-  it('returns 0 when (mod1Sqr * mod2Sqr === 0)', () => {
-    assert.deepEqual(vAngleFrom([0, 0], [0, 0]), 0)
+  it('returns null when (mod1Sqr * mod2Sqr === 0)', () => {
+    assert.deepEqual(vAngleFrom([0, 0], [0, 0]), null)
   })
   it('returns Math.acos(-1) when theta < -1', () => {
     assert.deepEqual(vAngleFrom([-3, -2], [3, 2]), 3.141592653589793)
   })
   it('vAngleFrom throws if vectors are not the same length', () => {
     assert.throws(() => vAngleFrom([1, 0, 0], [1, 1]), 'vectors need to be of matching lengths')
+  })
+})
+// TODO: vIsPerpendicular test for null return
+// vIsPerpendicular
+describe('@vIsPerpendicular', () => {
+  it('return true / false when using two vectors', () => {
+    const isPer = vIsPerpendicular([1, 0, 0], [0, 0, 1])
+    const isNotPer = vIsPerpendicular([1, 0, 1], [0, 0, 1])
+    assert.strictEqual(isPer, true)
+    assert.strictEqual(isNotPer, false)
+  })
+})
+// TODO: vIsAntiParallel test for null return
+// vIsAntiParallel
+describe('@vIsAntiParallel', () => {
+  it('return true when two vectors are anti parallel', () => {
+    const multVec = vScale(-235457, [1, 0, 0])
+    const isNotPer = vIsAntiParallel([1, 0, 0], multVec)
+    assert.strictEqual(isNotPer, true)
+  })
+  it('return false when two vectors are not anti parallel', () => {
+    const isPer = vIsAntiParallel([1, 0, 0], [8, 9, 0])
+    assert.strictEqual(isPer, false)
+  })
+})
+// TODO: look at vIsParallel as it feels it should be the other way around and test for null
+// vIsParallel
+describe('@vIsParallel', () => {
+  it('should be true when two vectors are parallel', () => {
+    // const vScaled = vScale(235457, [1, 0, 0])
+    assert.strictEqual(vIsParallel([1, 0, 0], [1, 0, 0]), true)
+  })
+  it('should be false when two vectors are not parallel', () => {
+    const isPer = vIsParallel([-3, -2], [3, 2])
+    assert.strictEqual(isPer, false)
   })
 })
 

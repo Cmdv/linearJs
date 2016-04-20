@@ -1,8 +1,7 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-// import {isValidVector} from './isValid'
 import {_curry2, _curry3} from '../util/fp-functions'
-
+import {PRECISION} from '../common'
 /**
  * vAdd adds 2 vectors together and returns the addition
  * in a single vector.
@@ -67,13 +66,65 @@ export const vAngleFrom = _curry2(function vAngleFrom (a, b) {
 
 function angleTheta (mod1Sqr, mod2Sqr, dot) {
   if (mod1Sqr * mod2Sqr === 0) {
-    return 0
+    return null
   }
   const theta = dot / (mod1Sqr * mod2Sqr)
   if (theta < -1) {
     return Math.acos(-1)
   }
   return Math.acos(1)
+}
+
+/**
+* vIsParallel, works out if two vectors are parallel to each other
+*
+* vIsParallel :: ([a], [b]) -> bool
+*
+* @param {Array} [a] vector
+* @param {Array} [b] vector
+* @returns {Boolean} returns boolean or null
+*/
+export const vIsParallel = function vIsParallel (a, b) {
+  const angle = vAngleFrom(a, b)
+  console.log(angle)
+  if (angle === null) {
+    return null
+  }
+  return (angle <= PRECISION)
+}
+
+/**
+ * vIsNotParallel, works out if two vectors are not parallel to each other
+ *
+ * vIsNotParallel :: ([a], [b]) -> bool
+ *
+ * @param {Array} [a] vector
+ * @param {Array} [b] vector
+ * @returns {Boolean} returns boolean or null
+ */
+export const vIsAntiParallel = function vIsAntiParallel (a, b) {
+  const angle = vAngleFrom(a, b)
+  if (angle === null) {
+    return null
+  }
+  return (Math.abs(angle - Math.PI) <= PRECISION)
+}
+
+/**
+ * vIsPerpendicular, works out if two vectors are perpendicular to each other
+ *
+ * vIsPerpendicular :: ([a], [b]) -> bool
+ *
+ * @param {Array} [a] vector
+ * @param {Array} [b] vector
+ * @returns {Boolean} returns boolean or null
+ */
+export const vIsPerpendicular = function vIsPerpendicular (a, b) {
+  const dot = vDot(a, b)
+  if (dot === null) {
+    return null
+  }
+  return (Math.abs(dot) <= PRECISION)
 }
 
 /**
