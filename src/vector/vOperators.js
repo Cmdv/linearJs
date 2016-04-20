@@ -70,7 +70,6 @@ function angleTheta (mod1Sqr, mod2Sqr, dot) {
     return 0
   }
   const theta = dot / (mod1Sqr * mod2Sqr)
-  console.log(theta)
   if (theta < -1) {
     return Math.acos(-1)
   }

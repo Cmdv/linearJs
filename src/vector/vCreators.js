@@ -1,6 +1,6 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import {isValidNumbers, isValidVector} from './isValid'
+import {vCreateFilled, isArray, isNestedArray, isNumber, isValidNumbers, isValidVector} from './util/vector-utils'
 import {RANDOM} from '../common'
 
 /**
@@ -17,29 +17,6 @@ import {RANDOM} from '../common'
  */
 export function vCreate (...els) {
   return Array.isArray(els[0]) ? isNestedArray(els) : isArray(els)
-}
-const vCreateFilled = (size, data) => {
-  const vec = Array(size)
-  for (let i = 0; i < vec.length; ++i) {
-    vec[i] = data
-  }
-  return vec
-}
-
-const isNestedArray = el => {
-  if (!isValidNumbers(el[0])) {
-    throw new Error('vCreate value should only be a number or an vector with numbers')
-  }
-  return el[0]
-}
-const isArray = el => {
-  if (!isValidNumbers(el)) {
-    throw new Error('vCreate value should only be a number or an vector with numbers')
-  }
-  return el
-}
-const isNum = num => {
-  return (typeof num === 'number')
 }
 
 /**
@@ -109,7 +86,7 @@ const randomGenerator = (vec, scale) => {
  * @returns {Array} a new vector filled with zeros
  */
 export function vZeros (num) {
-  if (!isNum(num)) {
+  if (!isNumber(num)) {
     throw new Error('vZeros only accepts a number value')
   }
   return vCreateFilled(num, 0)
@@ -126,7 +103,7 @@ export function vZeros (num) {
  * @returns {Array} a new vector filled with ones
  */
 export function vOnes (num) {
-  if (!isNum(num)) {
+  if (!isNumber(num)) {
     throw new Error('vOnes only accepts a number')
   }
   return vCreateFilled(num, 1)

@@ -3,7 +3,7 @@
 import {describe, it} from 'mocha'
 import assert from 'assert'
 
-import {isValidNumbers, isValidVector} from '../../src/vector/isValid'
+import {isValidNumbers, isValidVector} from '../../../src/vector/util/vector-utils'
 
 describe('@isValidNumbers()', () => {
   it('false if empty', () => {
