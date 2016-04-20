@@ -42,9 +42,12 @@ export const vAddSelf = function vAddSelf (a) {
  *
  * @param {Array} [a] vector
  * @param {Array} [b] vector
- * @returns {Number} single vector with result of the addition.
+ * @returns {Number} returns theta = Math.acos(-1) || Math.acos(1).
  */
-export const vAngleFrom = function vAngleFrom (a, b) {
+export const vAngleFrom = _curry2(function vAngleFrom (a, b) {
+  if (a.length !== b.length) {
+    throw new Error('vectors need to be of matching lengths')
+  }
   const l = a.length
   let dot = 0
   let mod1 = 0
@@ -60,16 +63,18 @@ export const vAngleFrom = function vAngleFrom (a, b) {
   const mod2Sqr = Math.sqrt(mod1)
 
   return angleTheta(mod1Sqr, mod2Sqr, dot)
-}
+})
 
 function angleTheta (mod1Sqr, mod2Sqr, dot) {
-  // TODO: fix this if statement as Math.round(null) = 0 need to throw I think!
   if (mod1Sqr * mod2Sqr === 0) {
-    return null
+    return 0
   }
-  let theta = dot / (mod1Sqr * mod2Sqr)
+  const theta = dot / (mod1Sqr * mod2Sqr)
   console.log(theta)
-  return (theta < -1) ? Math.acos(-1) : Math.acos(1)
+  if (theta < -1) {
+    return Math.acos(-1)
+  }
+  return Math.acos(1)
 }
 
 /**

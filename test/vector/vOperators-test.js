@@ -59,11 +59,20 @@ describe('@vAddSelf', () => {
 })
 
 // vAngleFrom
-describe('@angelFrom', () => {
-  it('angle from two vectors', () => {
+describe('@vAngleFrom', () => {
+  it('return when using two vectors', () => {
     const expect = Math.round((Math.PI / 4) * 1e-6) / 1e-6
     const result = Math.round(vAngleFrom([1, 0], [1, 1]) * 1e-6) / 1e-6
     assert.deepEqual(expect, result)
+  })
+  it('returns 0 when (mod1Sqr * mod2Sqr === 0)', () => {
+    assert.deepEqual(vAngleFrom([0, 0], [0, 0]), 0)
+  })
+  it('returns Math.acos(-1) when theta < -1', () => {
+    assert.deepEqual(vAngleFrom([-3, -2], [3, 2]), 3.141592653589793)
+  })
+  it('vAngleFrom throws if vectors are not the same length', () => {
+    assert.throws(() => vAngleFrom([1, 0, 0], [1, 1]), 'vectors need to be of matching lengths')
   })
 })
 
