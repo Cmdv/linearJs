@@ -2,7 +2,7 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {vCreate, vClone, vRandom, vLength, vZeros} from '../../src/vector/index'
+import {vCreate, vClone, vRandom, vLength, vZeros, vOnes} from '../../src/vector/index'
 
 const roundCheck = (x, y = 1) => x >= -y && x <= y + y
 
@@ -59,5 +59,14 @@ describe('@vZeros()', () => {
 
   it('throws if given a non numerical value', () => {
     assert.throws(() => vZeros([1, 2]), 'vZeros only accepts a number value')
+  })
+})
+describe('@vOnes()', () => {
+  it('creates new vector with all values as 1', () => {
+    const fiveOnes = [1, 1, 1, 1, 1]
+    assert.deepEqual(vOnes(5), fiveOnes)
+  })
+  it('throws if given a non numerical value', () => {
+    assert.throws(() => vOnes([0, 1]), 'vOnes expects a number')
   })
 })

@@ -18,6 +18,13 @@ import {RANDOM} from '../common'
 export function vCreate (...els) {
   return Array.isArray(els[0]) ? isNestedArray(els) : isArray(els)
 }
+const vCreateFilled = (size, data) => {
+  const vec = Array(size)
+  for (let i = 0; i < vec.length; ++i) {
+    vec[i] = data
+  }
+  return vec
+}
 
 const isNestedArray = el => {
   if (!isValidNumbers(el[0])) {
@@ -30,6 +37,9 @@ const isArray = el => {
     throw new Error('vCreate value should only be a number or an vector with numbers')
   }
   return el
+}
+const isNum = num => {
+  return (typeof num === 'number')
 }
 
 /**
@@ -99,13 +109,25 @@ const randomGenerator = (vec, scale) => {
  * @returns {Array} a new vector filled with zeros
  */
 export function vZeros (num) {
-  const isNum = typeof num === 'number'
-  if (!isNum) {
+  if (!isNum(num)) {
     throw new Error('vZeros only accepts a number value')
   }
-  const vec = Array(num)
-  for (let i = 0; i < vec.length; ++i) {
-    vec[i] = 0
+  return vCreateFilled(num, 0)
+}
+
+/**
+ * Generates a new, empty vector with all values being ones
+ *
+ * create :: a -> [a]
+ * create :: 2 -> [1,1]
+ *
+ * @param {Number} [num] value of length of vector
+ * @throws if argument is not a number
+ * @returns {Array} a new vector filled with ones
+ */
+export function vOnes (num) {
+  if (!isNum(num)) {
+    throw new Error('vOnes only accepts a number')
   }
-  return vec
+  return vCreateFilled(num, 1)
 }
