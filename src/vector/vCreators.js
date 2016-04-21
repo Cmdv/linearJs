@@ -54,15 +54,15 @@ export function vClone (vec) {
  * @throws if values is not a valid numerical number
  * @returns {Array} vector with random numbers
  */
-export function vRandom (els, scale = 1.0) {
-  if (!isValidNumbers(els)) {
+export function vRandom (a, scale = 1.0) {
+  if (!isValidNumbers(a)) {
     throw new Error('vRandom accepts a valid vector or a number')
   }
-  if (!Array.isArray(els)) {
-    const vec = Array(els)
+  if (!Array.isArray(a)) {
+    const vec = Array(a)
     return randomGenerator(vec, scale)
   }
-  return randomGenerator(els, scale)
+  return randomGenerator(a, scale)
 }
 
 const randomGenerator = (vec, scale) => {
