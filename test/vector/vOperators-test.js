@@ -76,7 +76,6 @@ describe('@vAngleFrom', () => {
     assert.throws(() => vAngleFrom([1, 0, 0], [1, 1]), 'vectors need to be of matching lengths')
   })
 })
-// TODO: vIsPerpendicular test for null return
 // vIsPerpendicular
 describe('@vIsPerpendicular', () => {
   it('return true / false when using two vectors', () => {
@@ -86,7 +85,6 @@ describe('@vIsPerpendicular', () => {
     assert.strictEqual(isNotPer, false)
   })
 })
-// TODO: vIsAntiParallel test for null return
 // vIsAntiParallel
 describe('@vIsAntiParallel', () => {
   it('return true when two vectors are anti parallel', () => {
@@ -99,12 +97,11 @@ describe('@vIsAntiParallel', () => {
     assert.strictEqual(isPer, false)
   })
 })
-// TODO: look at vIsParallel as it feels it should be the other way around and test for null
 // vIsParallel
 describe('@vIsParallel', () => {
   it('should be true when two vectors are parallel', () => {
-    // const vScaled = vScale(235457, [1, 0, 0])
-    assert.strictEqual(vIsParallel([1, 0, 0], [1, 0, 0]), true)
+    const para = vIsParallel([1, 0, 0], [1, 0, 0])
+    assert.strictEqual(para, true)
   })
   it('should be false when two vectors are not parallel', () => {
     const isPer = vIsParallel([-3, -2], [3, 2])

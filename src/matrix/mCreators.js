@@ -1,5 +1,7 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
+import {mRowLoop} from './util/matrix-util'
+
 // TODO: add a helper function to create the inner loop as complexity is on 4 right now
 /**
  * mZeros - Generates zeros from given numbers
@@ -13,26 +15,16 @@
  * @returns {Array} a new matrix with zeros
  */
 export const mZeros = function mZeros (n, m) {
-  if (!mCheck(n, m)) {
+  if (mNumCheck(n, m)) {
     throw new Error('mZeros expects 2 arguments and for them to be numbers')
   }
-
   const mtx = new Array(n)
-
   for (let i = 0; i < n; i++) {
     const row = new Array(m)
     mtx[i] = row
-
-    for (let j = 0; j < m; j++) {
-      row[j] = 0
-    }
+    mRowLoop(row, 0) // run the inner loop to fill row with values
   }
   return mtx
 }
 
-const mCheck = function mCheck (n, m) {
-  if (typeof n !== 'number' || typeof m !== 'number' || !n && !m) {
-    return false
-  }
-  return true
-}
+const mNumCheck = (n, m) => typeof n !== 'number' || typeof m !== 'number'

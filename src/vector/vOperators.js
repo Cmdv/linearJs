@@ -86,10 +86,6 @@ function angleTheta (mod1Sqr, mod2Sqr, dot) {
 */
 export const vIsParallel = function vIsParallel (a, b) {
   const angle = vAngleFrom(a, b)
-  console.log(angle)
-  if (angle === null) {
-    return null
-  }
   return (angle <= PRECISION)
 }
 
@@ -104,9 +100,6 @@ export const vIsParallel = function vIsParallel (a, b) {
  */
 export const vIsAntiParallel = function vIsAntiParallel (a, b) {
   const angle = vAngleFrom(a, b)
-  if (angle === null) {
-    return null
-  }
   return (Math.abs(angle - Math.PI) <= PRECISION)
 }
 
@@ -121,9 +114,6 @@ export const vIsAntiParallel = function vIsAntiParallel (a, b) {
  */
 export const vIsPerpendicular = function vIsPerpendicular (a, b) {
   const dot = vDot(a, b)
-  if (dot === null) {
-    return null
-  }
   return (Math.abs(dot) <= PRECISION)
 }
 
