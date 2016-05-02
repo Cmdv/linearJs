@@ -8,12 +8,24 @@
 // export const apply = (f, x) => f(x)
 
 // compose :: (b -> c) -> (a -> b) -> (a -> c)
-export const compose = (f, g) => {
+export const _compose = (f, g) => {
   if (!f && !g) {
     throw new Error('compose requires at least one argument')
   }
   return x => f(g(x))
 }
+
+// sum :: (a, b) -> (a + b)
+export const _sum = (x, y) => x + y
+
+// sum :: (a, b) -> (a / b)
+export const _div = (x, y) => x / y
+
+// sum :: (a, b) -> (a * b)
+export const _mult = (x, y) => x * y
+
+// sum :: (a, b) -> (a * b)
+export const _sub = (x, y) => x - y
 
 // curry2 :: ((a, b) -> c) -> (a -> b -> c)
 export function _curry2 (f) {
@@ -41,4 +53,14 @@ export function _curry3 (f) {
     }
   }
   return curried
+}
+
+// _zipWith2 :: ((b, c) a) -> (b -> c)
+export const _zipWith2 = (f, a1, a2) => {
+  const l = Math.min(a1.length, a2.length)
+  const r = new Array(l)
+  for (let i = 0; i < l; ++i) {
+    r[i] = f(a1[i], a2[i])
+  }
+  return r
 }

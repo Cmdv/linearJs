@@ -3,7 +3,7 @@
 import {describe, it} from 'mocha'
 import assert from 'assert'
 
-import {compose, _curry2, _curry3} from '../../src/util/fp-functions'
+import {_compose, _curry2, _curry3} from '../../src/util/fp-functions'
 
 describe('@fp-helpers', () => {
   describe('@compose', () => {
@@ -14,12 +14,12 @@ describe('@fp-helpers', () => {
 
       const f = x => x + fx
       const g = x => x + gx
-      const h = compose(f, g)
+      const h = _compose(f, g)
 
       assert.strictEqual(f(g(x)), h(x))
     })
     it('throws given no values', () => {
-      assert.throws(() => compose(), 'compose requires at least one argument')
+      assert.throws(() => _compose(), '_compose requires at least one argument')
     })
   })
   describe('@_curry2', () => {

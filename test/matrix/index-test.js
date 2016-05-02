@@ -4,5 +4,5 @@ import {describe} from 'mocha'
 
 describe('@matrices', () => {
   require('./mCreators-test')
-  // require('./mOperators-test')
+  require('./mOperators-test')
 })

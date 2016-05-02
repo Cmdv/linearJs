@@ -1,8 +1,5 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-export const mRowLoop = (row, data) => {
-  for (let i = 0; i < row.length; ++i) {
-    row[i] = data
-  }
-  return row
-}
+export const isMatrix = mtx => Array.isArray(mtx[0][0])
+
+export const mNumCheck = (n, m) => typeof n !== 'number' || typeof m !== 'number'

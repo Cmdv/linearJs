@@ -1,7 +1,13 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import {_curry2, _curry3} from '../util/fp-functions'
+import {
+  _curry2, _curry3,
+  _sum, _zipWith2,
+  _div, _mult, _sub
+} from '../util/fp-functions'
+
 import {PRECISION} from '../common'
+
 /**
  * vAdd adds 2 vectors together and returns the addition
  * in a single vector.
@@ -12,27 +18,18 @@ import {PRECISION} from '../common'
  * @param {Array} b vector
  * @returns {Array} [vec] single vector with result of the addition.
  */
-export const vAdd = _curry2(function vAdd (a, b) {
-  const l = a.length
-  const vec = []
-  for (let i = 0; i < l; ++i) {
-    vec[i] = a[i] + b[i]
-  }
-  return vec
-})
+export const vAdd = _curry2((a1, a2) => _zipWith2(_sum, a1, a2))
 
 /**
  * vAddSelf adds a given vector with it self and return the
  * addition in a single vector
  *
- * vAddSelf :: [a] -> ([a] + [a]) -> [b]
+ * vAddSelf :: [a] -> ([a] + [a]) -> [a]
  *
  * @param {Array} a vector
  * @returns {Array} single vector with result of the addition.
  */
-export const vAddSelf = function vAddSelf (a) {
-  return vAdd(a, a)
-}
+export const vAddSelf = a => _zipWith2(_sum, a, a)
 
 /**
  * vAngleFrom
@@ -125,7 +122,7 @@ export const vIsPerpendicular = function vIsPerpendicular (a, b) {
  * @param {Array} [a] function
  * @returns {Array} [vec] vector with values ceil
  */
-export const vCeil = function vMax (a) {
+export const vCeil = function vCeil (a) {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -144,14 +141,7 @@ export const vCeil = function vMax (a) {
  * @param {Array} b vector
  * @returns {Array} [vec] single vector with result of the division.
  */
-export const vDivide = _curry2(function vDivide (a, b) {
-  const l = a.length
-  const vec = []
-  for (let i = 0; i < l; ++i) {
-    vec[i] = a[i] / b[i]
-  }
-  return vec
-})
+export const vDivide = _curry2((a1, a2) => _zipWith2(_div, a1, a2))
 
 /**
  * vDistance Calculates the euclidean distance between two vectors
@@ -163,9 +153,7 @@ export const vDivide = _curry2(function vDivide (a, b) {
  * @param {Array} [b] the second operand
  * @returns {Number} distance between [a] and [b]
  */
-export const vDistance = _curry2(function (a, b) {
-  return Math.sqrt(vDistanceSq(a, b))
-})
+export const vDistance = _curry2((a, b) => Math.sqrt(vDistanceSq(a, b)))
 
 /**
  * vDistanceSq Calculates the squared euclidean distance between two vectors
@@ -199,7 +187,7 @@ export const vDistanceSq = _curry2(function (a, b) {
  */
 export const vDot = (a, b = a) => {
   const l = a.length
-  const vec = new Array(a)
+  const vec = new Array(l)
   if (l !== b.length) {
     throw new Error('vectors need to be of matching lengths')
   }
@@ -341,14 +329,7 @@ export const vMin = _curry2(function vMin (a, b) {
  * @param {Array} b vector
  * @returns {Array} [vec] single vector with result of the multiplication.
  */
-export const vMultiply = _curry2(function vMultiply (a, b) {
-  const l = a.length
-  const vec = []
-  for (let i = 0; i < l; ++i) {
-    vec[i] = a[i] * b[i]
-  }
-  return vec
-})
+export const vMultiply = _curry2((a1, a2) => _zipWith2(_mult, a1, a2))
 
 /**
  * vScale scales a vectors with a given value
@@ -361,7 +342,7 @@ export const vMultiply = _curry2(function vMultiply (a, b) {
  */
 export const vScale = _curry2(function vScale (a, b) {
   const l = b.length
-  const vec = []
+  const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
     vec[i] = b[i] * a
   }
@@ -431,11 +412,4 @@ export const vRound = function vRound (a) {
  * @param {Array} b vector
  * @returns {Array} [vec] single vector with result of the subtraction.
  */
-export const vSubtract = _curry2(function vSubtract (a, b) {
-  const l = a.length
-  const vec = []
-  for (let i = 0; i < l; ++i) {
-    vec[i] = a[i] - b[i]
-  }
-  return vec
-})
+export const vSubtract = _curry2((a1, a2) => _zipWith2(_sub, a1, a2))

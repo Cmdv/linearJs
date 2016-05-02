@@ -2,7 +2,7 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {compose} from '../../src/util/fp-functions'
+import {_compose} from '../../src/util/fp-functions'
 import {
   vAdd, vAddSelf, vCeil, vDot, vLength, vMap, vReduce,
   vSubtract, vDivide, vMultiply, vMax, vMin, vFloor,
@@ -36,10 +36,10 @@ describe('@vAdd, @vDivide, @vMultiply, @vSubtract', () => {
     assert.deepEqual(mult, [4, 16], 'multiplication')
   })
   it('operators can be used with compose() and are curried', () => {
-    const addComp = compose(vDot, vAdd([1, 2]))
-    const divComp = compose(vDot, vDivide([4, 4]))
-    const subComp = compose(vDot, vSubtract([5, 6]))
-    const multComp = compose(vDot, vMultiply([2, 2]))
+    const addComp = _compose(vDot, vAdd([1, 2]))
+    const divComp = _compose(vDot, vDivide([4, 4]))
+    const subComp = _compose(vDot, vSubtract([5, 6]))
+    const multComp = _compose(vDot, vMultiply([2, 2]))
 
     assert.deepEqual(addComp([4, 2]), 41, 'addition')
     assert.deepEqual(divComp([2, 2]), 8, 'division')
@@ -53,8 +53,8 @@ describe('@vAddSelf', () => {
   it('given one vector it will add it self', () => {
     assert.deepEqual(vAddSelf([1, 2]), [2, 4])
   })
-  it('vAddSelf can be used in compose()', () => {
-    const comp = compose(vDot, vAddSelf)
+  it('vAddSelf can be used in _compose()', () => {
+    const comp = _compose(vDot, vAddSelf)
     assert.deepEqual(comp([4, 2]), 80)
   })
 })
@@ -131,9 +131,9 @@ describe('@vDistance, vDistanceSq', () => {
     assert.deepEqual(dist, 2.23606797749979)
     assert.deepEqual(distSq, 5)
   })
-  it('works when used with compose', () => {
-    const compDiss = compose(Math.round, vDistance([4, 5]))
-    const compDissSq = compose(Math.round, vDistanceSq([4, 5]))
+  it('works when used with _compose', () => {
+    const compDiss = _compose(Math.round, vDistance([4, 5]))
+    const compDissSq = _compose(Math.round, vDistanceSq([4, 5]))
     assert.deepEqual(compDiss([2, 4]), 2)
     assert.deepEqual(compDissSq([2, 4]), 5)
   })
@@ -243,8 +243,8 @@ describe('@vScale', () => {
     const curryScale = vScale(2)([2, 4])
     assert.deepEqual(curryScale, [4, 8])
   })
-  it('works when used with compose', () => {
-    const compFloor = compose(vAddSelf, vScale(2))
+  it('works when used with _compose', () => {
+    const compFloor = _compose(vAddSelf, vScale(2))
     const result = compFloor([2, 4])
     assert.deepEqual(result, [8, 16])
   })

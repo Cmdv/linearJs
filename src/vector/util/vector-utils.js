@@ -14,9 +14,7 @@ const allNumbers = v => {
 const isNested = v => Array.isArray(v[0]) ? false : isValidNumbers(v)
 
 // is element number
-export const isNumber = x => {
-  return typeof x === 'number'
-}
+export const isNumber = x => typeof x === 'number'
 
 // check for valid numbers
 export function isValidNumbers (v) {
