@@ -6,9 +6,12 @@ const mCreate = (...sizes) => initialValue => {
   if (typeof sizes[0] !== 'number') {
     throw new Error('to create a vectors you must use numbers')
   }
-  return Array.from({ length: sizes[0] }, () =>
-    sizes.length === 1 ? initialValue : mCreate(...sizes.slice(1))(initialValue))
+  return _mCreate(sizes, initialValue, sizes.length - 1, 0)
 }
+
+const _mCreate = (sizes, initialValue, len, index) =>
+  Array.from({ length: sizes[index] }, () =>
+    index === len ? initialValue : _mCreate(sizes, initialValue, len, index + 1))
 
 /**
  * Generates a copy/clone of given matrix
@@ -35,32 +38,19 @@ export const mClone = (...mtx) => {
  * vRandom :: ([a] -> [a]) (a -> [a])
  * vRandom :: ([0] -> [0.294850]) (2 -> [0.294850, -0.3084532])
  *
- * @param {Array, Number} a of an array or number to randomise
- * @param {Number} [scale] [scale = 1.0] Scale of the resulting vector. If omitted,
- * a unit vector will be returned
+ * @param {Number} sizes of an array or number to randomise
  * @throws if values is not a valid numerical number
  * @returns {Array} vector with random numbers
  */
-// export function mRandom (a, b, scale = 1.0) {
-  // if (!isValidNumbers(a) || !isValidNumbers(b)) {
-  //   throw new Error('vRandom accepts a valid vector or a number')
-  // }
-//   if (!Array.isArray(a) && !Array.isArray(b)) {
-//     const vec = Array(a)
-//     return randomGenerator(vec, scale)
-//   }
-//   return randomGenerator(a, scale)
-// }
-//
-// const randomGenerator = (vec, scale) => {
-//   for (let i = 0; i < vec.length; ++i) {
-//     const r = RANDOM() * 2.0 * Math.PI
-//     vec[i] % 2 === 0
-//       ? vec[i] = Math.cos(r) * scale
-//       : vec[i] = Math.sin(r) * scale
-//   }
-//   return vec
-// }
+export const mRandom = (...sizes) => {
+  if (typeof sizes[0] !== 'number') {
+    throw new Error('to create a vectors you must use numbers')
+  }
+  return _mRandom(sizes, sizes.length - 1, 0)
+}
+// TODO: Math.cos + Math.sin
+const _mRandom = (sizes, len, index) =>
+  Array.from({ length: sizes[index] }, () => index === len ? Math.cos(Math.random() * 2.0 * Math.PI) : _mRandom(sizes, len, index + 1))
 
 /**
  * mZeros - Generates zeros from given numbers
