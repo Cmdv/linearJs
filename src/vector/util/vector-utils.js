@@ -27,20 +27,6 @@ export function isValidVector (v) {
     ? isNested(v) : false
 }
 
-export const vCreateFilled = (size, data) => {
-  const vec = Array(size)
-  for (let i = 0; i < vec.length; ++i) {
-    vec[i] = data
-  }
-  return vec
-}
-
-export const isNestedArray = el => {
-  if (!isValidNumbers(el[0])) {
-    throw new Error('vCreate value should only be a number or an vector with numbers')
-  }
-  return el[0]
-}
 export const isArray = el => {
   if (!isValidNumbers(el)) {
     throw new Error('vCreate value should only be a number or an vector with numbers')

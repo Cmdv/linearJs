@@ -8,16 +8,14 @@ const roundCheck = (x, y = 1) => x >= -y && x <= y + y
 
 describe('@vCreate()', () => {
   it('creates vector given numbers', () => {
-    assert.deepEqual(vCreate(1, 2), [1, 2])
+    assert.deepEqual(vCreate(2)(1), [1, 1])
   })
   it('creates vector given array', () => {
-    assert.deepEqual(vCreate([1, 2]), [1, 2])
+    assert.deepEqual(vCreate(2)(), [0, 0])
   })
   it('throws if value of vCreate is not numerical', () => {
-    assert.throws(() => vCreate(['a']), 'vCreate value should only be a ' +
-      'number or an vector with numbers')
-    assert.throws(() => vCreate('a'), 'vCreate value should only be a ' +
-      'number or an vector with numbers')
+    assert.throws(() => vCreate([1])(), 'value should be a number to create a vector')
+    assert.throws(() => vCreate('a', 2), 'value should be a number to create a vector')
   })
 })
 describe('@vClone()', () => {
@@ -25,7 +23,7 @@ describe('@vClone()', () => {
     assert.deepEqual(vClone([1, 2, 3]), [1, 2, 3])
   })
   it('throws if value of vClone is not numerical', () => {
-    assert.throws(() => vClone('a'), 'vvClone only accepts a valid vector')
+    assert.throws(() => vClone('a'), 'vClone only accepts a valid vector')
   })
 })
 describe('@vRandom()', () => {

@@ -1,23 +1,27 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import {vCreateFilled, isArray, isNestedArray, isNumber, isValidNumbers} from './util/vector-utils'
+import {isValidNumbers} from './util/vector-utils'
+import {_curry2} from '../util/fp-functions'
 import {RANDOM} from '../common'
 
 /**
  * Generates a new, empty vector from a set of numbers or an array, you can
  * create new vectors by just creating an array but this is a helper function.
  *
- * vCreate :: ([a] -> [a]) (a -> [a])
- * vCreate :: 1,2,3 -> [1,2,3]
+ * vCreate :: a -> [a]
+ * vCreate :: (2)(0) -> [0, 0]
  *
- * @param {Array/Number} [els] empty vector `[0, 0, 0, 0]`
- * @throws if all values aren't numbers
- * @throws if value is not a vector
+ * @param {Number} num: length of the vector
+ * @param {Number} initialValue: number to fill each vector value with
+ * @throws if value isn't a number
  * @returns {Array} a new vector
  */
-export function vCreate (...els) {
-  return Array.isArray(els[0]) ? isNestedArray(els) : isArray(els)
-}
+export const vCreate = _curry2((num, initialValue = 0) => {
+  if (typeof num !== 'number' || typeof initialValue !== 'number') {
+    throw new Error('value should be a number to create a vector')
+  }
+  return Array.from({ length: num }, () => initialValue)
+})
 
 /**
  * Generates a copy/clone of given vector
@@ -44,7 +48,7 @@ export function vClone (vec) {
  * vRandom :: ([a] -> [a]) (a -> [a])
  * vRandom :: ([0] -> [0.294850]) (2 -> [0.294850, -0.3084532])
  *
- * @param {Array, Number} els of an array or number to randomise
+ * @param {Array, Number} a of an array or number to randomise
  * @param {Number} [scale] [scale = 1.0] Scale of the resulting vector. If omitted,
  * a unit vector will be returned
  * @throws if values is not a valid numerical number
@@ -77,16 +81,11 @@ const randomGenerator = (vec, scale) => {
  * create :: a -> [a]
  * create :: 2 -> [0,0]
  *
- * @param {Number} [num] value of length of vector
+ * @param {Number} num: value of length of vector
  * @throws value is not a number
  * @returns {Array} a new vector filled with zeros
  */
-export function vZeros (num) {
-  if (!isNumber(num)) {
-    throw new Error('vZeros only accepts a number value')
-  }
-  return vCreateFilled(num, 0)
-}
+export const vZeros = num => vCreate(num, 0)
 
 /**
  * Generates a new, empty vector with all values being ones
@@ -98,9 +97,4 @@ export function vZeros (num) {
  * @throws if argument is not a number
  * @returns {Array} a new vector filled with ones
  */
-export function vOnes (num) {
-  if (!isNumber(num)) {
-    throw new Error('vOnes only accepts a number')
-  }
-  return vCreateFilled(num, 1)
-}
+export const vOnes = num => vCreate(num, 1)
