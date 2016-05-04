@@ -2,6 +2,7 @@
 
 import { isMatrix } from './util/matrix-util'
 
+// TODO: creat just empty matrix [[],[]]
 const mCreate = (...sizes) => initialValue => {
   if (typeof sizes[0] !== 'number') {
     throw new Error('to create a vectors you must use numbers')

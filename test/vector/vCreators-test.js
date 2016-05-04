@@ -25,8 +25,7 @@ describe('@vClone()', () => {
     assert.deepEqual(vClone([1, 2, 3]), [1, 2, 3])
   })
   it('throws if value of vClone is not numerical', () => {
-    assert.throws(() => vClone(['a']), 'vClone needs a valid vector ' +
-      'with numbers only and not a matrix')
+    assert.throws(() => vClone('a'), 'vvClone only accepts a valid vector')
   })
 })
 describe('@vRandom()', () => {

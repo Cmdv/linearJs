@@ -1,6 +1,6 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import {vCreateFilled, isArray, isNestedArray, isNumber, isValidNumbers, isValidVector} from './util/vector-utils'
+import {vCreateFilled, isArray, isNestedArray, isNumber, isValidNumbers} from './util/vector-utils'
 import {RANDOM} from '../common'
 
 /**
@@ -30,14 +30,10 @@ export function vCreate (...els) {
  * @returns {Array} a new copy vector
  */
 export function vClone (vec) {
-  if (!isValidVector(vec)) {
-    throw new Error('vClone accepts a valid vector with numbers only and not a matrix')
+  if (!Array.isArray(vec)) {
+    throw new Error('vClone only accepts a valid vector')
   }
-  const newVec = vCreate(vec)
-  for (let i = 0; i < newVec.length; ++i) {
-    newVec[i] = vec[i]
-  }
-  return newVec
+  return Array.from(vec)
 }
 
 /**
