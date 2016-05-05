@@ -26,10 +26,3 @@ export function isValidVector (v) {
   return Array.isArray(arguments[0]) && arguments.length === 1
     ? isNested(v) : false
 }
-
-export const isArray = el => {
-  if (!isValidNumbers(el)) {
-    throw new Error('vCreate value should only be a number or an vector with numbers')
-  }
-  return el
-}

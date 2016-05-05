@@ -1,8 +1,7 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import {isValidNumbers} from './util/vector-utils'
-import {_curry2} from '../util/fp-functions'
-import {RANDOM} from '../common'
+import {_curry2} from '../util/fp-utils'
+import {random} from '../util/common-utils'
 
 /**
  * Generates a new, empty vector from a set of numbers or an array, you can
@@ -48,31 +47,17 @@ export function vClone (vec) {
  * vRandom :: ([a] -> [a]) (a -> [a])
  * vRandom :: ([0] -> [0.294850]) (2 -> [0.294850, -0.3084532])
  *
- * @param {Array, Number} a of an array or number to randomise
+ * @param {Number} num: of an array or number to randomise
  * @param {Number} [scale] [scale = 1.0] Scale of the resulting vector. If omitted,
  * a unit vector will be returned
  * @throws if values is not a valid numerical number
  * @returns {Array} vector with random numbers
  */
-export function vRandom (a, scale = 1.0) {
-  if (!isValidNumbers(a)) {
-    throw new Error('vRandom accepts a valid vector or a number')
+export const vRandom = (scale = 1.0, ...num) => {
+  if (typeof scale !== 'number' || typeof num[0] !== 'number') {
+    throw new Error('value should be a number to create a random vector')
   }
-  if (!Array.isArray(a)) {
-    const vec = Array(a)
-    return randomGenerator(vec, scale)
-  }
-  return randomGenerator(a, scale)
-}
-
-const randomGenerator = (vec, scale) => {
-  for (let i = 0; i < vec.length; ++i) {
-    const r = RANDOM() * 2.0 * Math.PI
-    vec[i] % 2 === 0
-      ? vec[i] = Math.cos(r) * scale
-      : vec[i] = Math.sin(r) * scale
-  }
-  return vec
+  return Array.from({ length: num }, (a, i) => random(i, scale))
 }
 
 /**

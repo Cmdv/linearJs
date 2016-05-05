@@ -3,7 +3,7 @@
 import {describe, it} from 'mocha'
 import assert from 'assert'
 
-import {_compose, _curry2, _curry3} from '../../src/util/fp-functions'
+import {_compose, _curry2, _curry3} from '../../src/util/fp-utils'
 
 describe('@fp-helpers', () => {
   describe('@compose', () => {

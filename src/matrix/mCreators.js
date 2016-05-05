@@ -1,8 +1,9 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import { isMatrix } from './util/matrix-util'
+import {isMatrix} from './util/matrix-util'
+import {_curry2} from '../util/fp-utils'
+import {random} from '../util/common-utils'
 
-// TODO: creat just empty matrix [[],[]]
 const mCreate = (...sizes) => initialValue => {
   if (typeof sizes[0] !== 'number') {
     throw new Error('to create a vectors you must use numbers')
@@ -39,23 +40,21 @@ export const mClone = (...mtx) => {
  * vRandom :: ([a] -> [a]) (a -> [a])
  * vRandom :: ([0] -> [0.294850]) (2 -> [0.294850, -0.3084532])
  *
+ * @param {Number} scale: the scale you want to randomise the matrix
  * @param {Number} sizes of an array or number to randomise
  * @throws if values is not a valid numerical number
  * @returns {Array} vector with random numbers
  */
-export const mRandom = (...sizes) => {
-  if (typeof sizes[0] !== 'number') {
+export const mRandom = _curry2((scale = 1.0, ...value) => {
+  if (typeof value[0] !== 'number') {
     throw new Error('to create a vectors you must use numbers')
   }
-  return _mRandom(sizes, sizes.length - 1, 0, scale)
-}
-const random = (i, scale) => i % 2 === 0
-  ? Math.cos(Math.random() * 2.0 * Math.PI)
-  : Math.sin(Math.random() * 2.0 * Math.PI)
+  return _mRandom(value, value.length - 1, 0, scale)
+})
 
-const _mRandom = (sizes, len, index) =>
-  Array.from({ length: sizes[index] },
-    (a, i) => index === len ? random(i) : _mRandom(sizes, len, index + 1)
+const _mRandom = (value, len, index, scale) =>
+  Array.from({ length: value[index] },
+    (a, i) => index === len ? random(i, scale) : _mRandom(value, len, index + 1, scale)
   )
 
 /**

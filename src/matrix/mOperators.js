@@ -1,6 +1,6 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
-import { _curry2, _zipWith2 } from '../util/fp-functions'
+import { _curry2, _zipWith2 } from '../util/fp-utils'
 import { vAdd, vDivide, vMultiply, vSubtract } from '../vector/vOperators'
 
 /**

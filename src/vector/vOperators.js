@@ -4,7 +4,7 @@ import {
   _curry2, _curry3,
   _sum, _zipWith2,
   _div, _mult, _sub
-} from '../util/fp-functions'
+} from '../util/fp-utils'
 
 import {PRECISION} from '../common'
 

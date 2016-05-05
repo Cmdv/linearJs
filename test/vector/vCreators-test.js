@@ -27,26 +27,20 @@ describe('@vClone()', () => {
   })
 })
 describe('@vRandom()', () => {
-  it('creates random vector values given array', () => {
-    const ran = vRandom([0, 0, 0, 0])
-    const result = roundCheck(Math.round(vLength(ran)))
-    assert.equal(result, true)
-    assert.deepEqual(ran.length, 4)
-  })
-  it('creates random vector with length of given numbers', () => {
-    const ran = vRandom(4)
+  it('creates random vector values given number', () => {
+    const ran = vRandom(1, 4)
     const result = roundCheck(Math.round(vLength(ran)))
     assert.equal(result, true)
     assert.deepEqual(ran.length, 4)
   })
   it('creates random vector using the given scale', () => {
     const scale = 5
-    const ran = vRandom(4, scale)
+    const ran = vRandom(scale, 4)
     const result = roundCheck(Math.round(vLength(ran)), scale)
     assert.equal(result, true)
   })
   it('throws if value is not numerical', () => {
-    assert.throws(() => vRandom(['a']), 'vRandom accepts a valid vector or a number')
+    assert.throws(() => vRandom(['a']), 'value should be a number to create a random vector')
   })
 })
 describe('@vZeros()', () => {
