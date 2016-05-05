@@ -47,11 +47,16 @@ export const mRandom = (...sizes) => {
   if (typeof sizes[0] !== 'number') {
     throw new Error('to create a vectors you must use numbers')
   }
-  return _mRandom(sizes, sizes.length - 1, 0)
+  return _mRandom(sizes, sizes.length - 1, 0, scale)
 }
-// TODO: Math.cos + Math.sin
+const random = (i, scale) => i % 2 === 0
+  ? Math.cos(Math.random() * 2.0 * Math.PI)
+  : Math.sin(Math.random() * 2.0 * Math.PI)
+
 const _mRandom = (sizes, len, index) =>
-  Array.from({ length: sizes[index] }, () => index === len ? Math.cos(Math.random() * 2.0 * Math.PI) : _mRandom(sizes, len, index + 1))
+  Array.from({ length: sizes[index] },
+    (a, i) => index === len ? random(i) : _mRandom(sizes, len, index + 1)
+  )
 
 /**
  * mZeros - Generates zeros from given numbers
