@@ -29,8 +29,9 @@ describe('@mAdd, @vDivide, @vMultiply, @vSubtract', () => {
     [1, 1]]), [[6, 6], [3, 3]], 'subtraction')
     assert.deepEqual(mult, [[4, 16], [4, 16]], 'multiplication')
   })
+  // TODO: once dot is added then do these
   it('operators can be used with compose() and are curried', () => {
-    // const addComp = _compose(mAdd([[1, 2], [1, 2]]))
+    // const addComp = _compose(vDot, mAdd([[1, 2], [1, 2]]))
     // const divComp = _compose(vDot, vDivide([4, 4]))
     // const subComp = _compose(vDot, mSubtract([5, 6]))
     // const multComp = _compose(vDot, mMultiply([2, 2]))

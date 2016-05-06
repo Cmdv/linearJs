@@ -4,6 +4,8 @@ import {describe, it} from 'mocha'
 import assert from 'assert'
 import {mZeros, mClone, mOnes} from '../../src/matrix/index'
 
+// const roundCheck = (x, y = 1) => x >= -y && x <= y + y
+
 describe('@mClone()', () => {
   it('Generates a copy/clone of given matrix', () => {
     const mc = mClone([[1, 2, 3], [4, 5, 6]])
@@ -13,6 +15,25 @@ describe('@mClone()', () => {
     assert.throws(() => mClone([1, 2, 3]), 'mClone() only accepts a matrix')
   })
 })
+
+// TODO: once mlength is done for matrices then make these tests.
+// describe('@mRandom()', () => {
+//   it('creates random vector values given number', () => {
+//     const ran = mRandom(1, 4)
+//     const result = roundCheck(Math.round(vLength(ran)))
+//     assert.equal(result, true)
+//     assert.deepEqual(ran.length, 4)
+//   })
+//   it('creates random vector using the given scale', () => {
+//     const scale = 5
+//     const ran = mRandom(scale, 4)
+//     const result = roundCheck(Math.round(vLength(ran)), scale)
+//     assert.equal(result, true)
+//   })
+//   it('throws if value is not numerical', () => {
+//     assert.throws(() => mRandom(['a']), 'value should be a number to create a random vector')
+//   })
+// })
 
 describe('@vZeros()', () => {
   it('creates new matrix with zeros values', () => {

@@ -1,8 +1,8 @@
 /** @license MIT License (c) copyright 2016 original author or authors */
 
 import {isMatrix} from './util/matrix-util'
-import {_curry2} from '../util/fp-utils'
-import {random} from '../util/common-utils'
+// import {_curry2} from '../util/fp-utils'
+// import {random} from '../util/common-utils'
 
 const mCreate = (...sizes) => initialValue => {
   if (typeof sizes[0] !== 'number') {
@@ -45,17 +45,18 @@ export const mClone = (...mtx) => {
  * @throws if values is not a valid numerical number
  * @returns {Array} vector with random numbers
  */
-export const mRandom = _curry2((scale = 1.0, ...value) => {
-  if (typeof value[0] !== 'number') {
-    throw new Error('to create a vectors you must use numbers')
-  }
-  return _mRandom(value, value.length - 1, 0, scale)
-})
-
-const _mRandom = (value, len, index, scale) =>
-  Array.from({ length: value[index] },
-    (a, i) => index === len ? random(i, scale) : _mRandom(value, len, index + 1, scale)
-  )
+// TODO: once mlength is completed, will be able to write tests
+// export const mRandom = _curry2((scale = 1.0, ...value) => {
+//   if (typeof value[0] !== 'number') {
+//     throw new Error('to create a vectors you must use numbers')
+//   }
+//   return _mRandom(value, value.length - 1, 0, scale)
+// })
+//
+// const _mRandom = (value, len, index, scale) =>
+//   Array.from({ length: value[index] },
+//     (a, i) => index === len ? random(i, scale) : _mRandom(value, len, index + 1, scale)
+//   )
 
 /**
  * mZeros - Generates zeros from given numbers
