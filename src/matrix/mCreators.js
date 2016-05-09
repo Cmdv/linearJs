@@ -34,11 +34,11 @@ export const mClone = (...mtx) => {
 
 /**
  * Generates a random matrix with the given scale which is set to 1 if empty.
- * Takes either a number which dictates the length of vector given back or
+ * Takes a number which dictates the length of vector given back or
  * converts an existing vector into random numbers
  *
- * vRandom :: ([a] -> [a]) (a -> [a])
- * vRandom :: ([0] -> [0.294850]) (2 -> [0.294850, -0.3084532])
+ * mRandom :: ([a] -> [a]) (a -> [a])
+ * mRandom :: ([0] -> [0.294850]) (2 -> [0.294850, -0.3084532])
  *
  * @param {Number} scale: the scale you want to randomise the matrix
  * @param {Number} sizes of an array or number to randomise
@@ -57,6 +57,39 @@ export const mClone = (...mtx) => {
 //   Array.from({ length: value[index] },
 //     (a, i) => index === len ? random(i, scale) : _mRandom(value, len, index + 1, scale)
 //   )
+
+/**
+ * Generates an identity matrix.
+ * Takes a number which dictates the length of vector given back or
+ * converts an existing vector into random numbers
+ *
+ * mIndentity :: Num -> [a]
+ * mIndentity :: 2 -> [[1, 0], [0, 1]]
+ *
+ * @param {Number} n: size of identity matrix
+ * @throws if values is not a valid numerical number
+ * @returns {Array} identity matrix
+ */
+// TODO: fix the complexity issue of this function
+/* eslint-disable complexity */
+export const mIndentity = n => {
+  if (typeof n !== 'number') {
+    throw new Error('to create an identity matrix you must use a number')
+  }
+  let els = new Array(n)
+  let i = n
+  let j
+
+  while (i--) {
+    j = n
+    els[i] = new Array(n)
+
+    while (j--) {
+      els[i][j] = (i === j) ? 1 : 0
+    }
+  }
+  return els
+}
 
 /**
  * mZeros - Generates zeros from given numbers
