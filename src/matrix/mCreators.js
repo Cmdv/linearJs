@@ -60,8 +60,7 @@ export const mClone = (...mtx) => {
 
 /**
  * Generates an identity matrix.
- * Takes a number which dictates the length of vector given back or
- * converts an existing vector into random numbers
+ * Takes a number which dictates the size of the indentity matrix returned.
  *
  * mIndentity :: Num -> [a]
  * mIndentity :: 2 -> [[1, 0], [0, 1]]
@@ -72,7 +71,7 @@ export const mClone = (...mtx) => {
  */
 // TODO: fix the complexity issue of this function
 /* eslint-disable complexity */
-export const mIndentity = n => {
+export const mIdentity = n => {
   if (typeof n !== 'number') {
     throw new Error('to create an identity matrix you must use a number')
   }

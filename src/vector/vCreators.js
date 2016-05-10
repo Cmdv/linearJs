@@ -32,7 +32,7 @@ export const vCreate = _curry2((num, initialValue = 0) => {
  * @throws if not a valid number or valid vector
  * @returns {Array} a new copy vector
  */
-export function vClone (vec) {
+export const vClone = vec => {
   if (!Array.isArray(vec)) {
     throw new Error('vClone only accepts a valid vector')
   }

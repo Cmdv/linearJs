@@ -2,7 +2,7 @@
 
 import {describe, it} from 'mocha'
 import assert from 'assert'
-import {mZeros, mClone, mOnes, mIndentity} from '../../src/matrix/index'
+import {mZeros, mClone, mOnes, mIdentity} from '../../src/matrix/index'
 
 // const roundCheck = (x, y = 1) => x >= -y && x <= y + y
 
@@ -34,15 +34,15 @@ describe('@mClone()', () => {
 //     assert.throws(() => mRandom(['a']), 'value should be a number to create a random vector')
 //   })
 // })
-describe('@mIndentity()', () => {
+describe('@mIdentity()', () => {
   it('creates new matrix with zeros values', () => {
-    assert.deepEqual(mIndentity(2), [[1, 0], [0, 1]])
+    assert.deepEqual(mIdentity(2), [[1, 0], [0, 1]])
   })
   it('creates new matrix with zeros values', () => {
-    assert.deepEqual(mIndentity(3), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    assert.deepEqual(mIdentity(3), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
   })
   it('throws if the argument is not a number', () => {
-    assert.throws(() => mIndentity('a'), 'to create an identity matrix you must use a number')
+    assert.throws(() => mIdentity('a'), 'to create an identity matrix you must use a number')
   })
 })
 

@@ -40,7 +40,7 @@ export const vAddSelf = a => _zipWith2(_sum, a, a)
  * @param {Array} [b] vector
  * @returns {Number} returns theta = Math.acos(-1) || Math.acos(1).
  */
-export const vAngleFrom = _curry2(function vAngleFrom (a, b) {
+export const vAngleFrom = _curry2((a, b) => {
   if (a.length !== b.length) {
     throw new Error('vectors need to be of matching lengths')
   }
@@ -81,7 +81,7 @@ function angleTheta (mod1Sqr, mod2Sqr, dot) {
 * @param {Array} [b] vector
 * @returns {Boolean} returns boolean or null
 */
-export const vIsParallel = function vIsParallel (a, b) {
+export const vIsParallel = (a, b) => {
   const angle = vAngleFrom(a, b)
   return (angle <= PRECISION)
 }
@@ -95,7 +95,7 @@ export const vIsParallel = function vIsParallel (a, b) {
  * @param {Array} [b] vector
  * @returns {Boolean} returns boolean or null
  */
-export const vIsAntiParallel = function vIsAntiParallel (a, b) {
+export const vIsAntiParallel = (a, b) => {
   const angle = vAngleFrom(a, b)
   return (Math.abs(angle - Math.PI) <= PRECISION)
 }
@@ -109,7 +109,7 @@ export const vIsAntiParallel = function vIsAntiParallel (a, b) {
  * @param {Array} [b] vector
  * @returns {Boolean} returns boolean or null
  */
-export const vIsPerpendicular = function vIsPerpendicular (a, b) {
+export const vIsPerpendicular = (a, b) => {
   const dot = vDot(a, b)
   return (Math.abs(dot) <= PRECISION)
 }
@@ -122,7 +122,7 @@ export const vIsPerpendicular = function vIsPerpendicular (a, b) {
  * @param {Array} [a] function
  * @returns {Array} [vec] vector with values ceil
  */
-export const vCeil = function vCeil (a) {
+export const vCeil = a => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -165,7 +165,7 @@ export const vDistance = _curry2((a, b) => Math.sqrt(vDistanceSq(a, b)))
  * @param {Array} [b] the second operand
  * @returns {Number} distance between [a] and [b]
  */
-export const vDistanceSq = _curry2(function (a, b) {
+export const vDistanceSq = _curry2((a, b) => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -205,7 +205,7 @@ export const vDot = (a, b = a) => {
  * @param {Array} [a] function
  * @returns {Array} [vec] vector of with all floor values
  */
-export const vFloor = function vFloor (a) {
+export const vFloor = a => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -222,7 +222,7 @@ export const vFloor = function vFloor (a) {
  * @param {Array} b the second operand
  * @returns {Array} out
  */
-export const vInterp = _curry3(function vInterp (t, a, b) {
+export const vInterp = _curry3((t, a, b) => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -291,7 +291,7 @@ export const vMap = (f, a) => {
  * @param {Array} [b] vector
  * @returns {Array} [vec] vector
  */
-export const vMax = _curry2(function vMax (a, b) {
+export const vMax = _curry2((a, b) => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -310,7 +310,7 @@ export const vMax = _curry2(function vMax (a, b) {
  * @param {Array} [b] vector
  * @returns {Array} [vec] vector
  */
-export const vMin = _curry2(function vMin (a, b) {
+export const vMin = _curry2((a, b) => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -340,7 +340,7 @@ export const vMultiply = _curry2((a1, a2) => _zipWith2(_mult, a1, a2))
  * @param {Array} [b] vector
  * @returns {Array} [vec] single vector with result of the scale.
  */
-export const vScale = _curry2(function vScale (a, b) {
+export const vScale = _curry2((a, b) => {
   const l = b.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -357,7 +357,7 @@ export const vScale = _curry2(function vScale (a, b) {
  * @param {Array} [a] vector
  * @returns {Array} [vec] vector with it's values negated
  */
-export const vNegate = function vNegate (a) {
+export const vNegate = a => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
@@ -393,7 +393,7 @@ export const vReduce = (f, a, z = 0) => {
  * @param {Array} [a] function
  * @returns {Array} [vec] vector
  */
-export const vRound = function vRound (a) {
+export const vRound = a => {
   const l = a.length
   const vec = new Array(l)
   for (let i = 0; i < l; ++i) {
